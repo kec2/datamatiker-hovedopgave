@@ -1,0 +1,15 @@
+\paragraph{I dag d. 01-03-06}
+
+Kode:
+\begin{itemize}
+\item Fundet en perfomance-mæssig fejl i postnummer funktionaliteten. Programmet hentede samtlige postnumre i databasen hver gang kundekontainerobjektet blev oprettet, dvs. hver gang en session blev oprettet. Nu er PostNr klassen implementeret som en singleton og kaldet foretages i session; der er nu kun ét databasekald til postnr pr. programstart, resten udføres i programmets datastruktur.
+\item Opstartsdelen fungerer nu efter hensigten, i denne omgang.
+\item Sessionen oprettes først ved tryk på 'btnOK' og ikk rdoNySession som før.
+\item Raadgiver tekststrengen sendes til sessionsobjektet.
+\item KundeDatadelen fungerer nu efter hensigten, i denne omgang.
+\item Notefeltet opdateres med noten fra sessionsobjektet ved formload.
+\item Notefeltet gemmes ved tryk på navigeringsknapperne.
+\item Der kan skiftes mellem personerne i sessionen.
+\item By hentes frem til teksfeltet hver gang formen opdateres.
+\item SQL-kald i Sessionskontainer er opdateret i forhold til Default/Empty
+\end{itemize}

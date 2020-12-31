@@ -1,0 +1,212 @@
+\newpage
+\section{Design af brugergrænseflade}
+
+``At designe en god grafisk brugergrænseflade indebærer delvist disciplin, videnskab og  kreativitet'', se kilde \cite{MCToday}. Med disciplin menes to ting. Den ene ting vi skal følge er de konventioner og regler der findes for brugergrænseflader til den pågældende platfom. I vores tilfælde er denne platform Microsoft Windows. Da vi udvikler i Visual Studio, som er et Windows udviklingsmiljø, får vi en del elementer foræret. Disse elementer er for eksempel skrifttyper og udseende på knapper, rullegardiner med videre. Hermed siger vi ikke at disse elementer ikke kan ændres, men det er ikke noget vi har fokuseret meget på. Den anden ting som disciplin dækker over er principperne for godt design af brugergrænseflader. Se afsnit \ref{principper_for_godt_design} på side \pageref{principper_for_godt_design}. 
+Med videnskab menes der usability testing, som også er et område vi ikke brugt tid på. Usability dækker over hvor brugbart et system er, herunder hvor tilfredsstillende og produktivt systemet er. Man kan lade brugerne teste systemet og dermed finde ud af hvor lang tid en opgave tager, hvor mange fejl der bliver lavet, hvor stor grad af frustration der er i forbindelse med brugen af systemet og så videre. Se kilde \cite{ooa_ood}. Når det kommer til kreativitet har vi blandt andet kigget på valg af farver, valg af logoer og ikoner med videre.
+
+\subsection{Teori om brugergrænseflader}
+Der er forskel på funktionalitet og brugergrænseflade i et program. Funktionalitet dækker over hvad programmet faktisk gør, mens brugergrænsefladen dækker over hvordan brugerne interagerer med programmet, altså hvordan brugeren opfatter systemet og hvordan dette system arbejder. %At kunne gøre sig det klart, at der er en forskel på funktionalitet og brugergrænseflade i nogen sammenhænge er absolut nødvendigt og det er ikke noget nyt. Tænk på en bil, man behøver ikke forstå hvordan bilens indre dele arbejder sammen for at kunne køre den.
+
+Når man skal lave en god grafisk brugergrænseflade, er der 3 vigtige faldgrubber man skal være opmærksom på og forsøge at undgå, se kilde \cite{MCToday}:
+
+\begin{enumerate}
+\item At man benytter sig af en problemcentreret og ikke en brugercentreret designproces.
+\item At man ikke forstår eventdreven programmering til fulde og ikke får udnyttet denne.
+\item At man ignorerer affordance, metaforer og manipulation.
+\end{enumerate}
+
+Yderligere findes der 10 designprincipper for brugergrænseflader, som vi kommer ind på efterfølgende, se kilde \cite{MCToday}. Da det ikke er alle 10 principper vi kan påføres vores applikation, vil vi kun liste dem vi har anvendt. Se afsnit \ref{principper_for_godt_design} på side \pageref{principper_for_godt_design}.
+
+\subsubsection{Den brugercentrerede design proces}
+Tidligere fokuserede udviklere udelukkende på om programmet virkede, og et godt program var et der brugte få ressourcer. Dette er essencen i den problemcentrede designprocess. Programmerne var endvidere rettet mod fagfolk med en baggrund i computermiljøet. Idag er der rigelige computerressoucer til rådighed og langt de fleste brugere besidder ikke avancerede computerfærdigheder, se kilde \cite{MCToday}. Det samme kendetegner vores situation. 
+
+Vi vil i vores designproces ikke kun designe et program der virker eller bruger få ressourcer. Vi stiler mod at udvikle et program, man som bruger skal bruge mindst mulig grad af tilvænning til og uddannelse i, for at kunne anvende. Altså et program med en høj grad af brugervenlighed og intuitivitet.
+
+For at opnå dette er det vigtigt at brugerne af systemet involveres gennem hele udviklingsprocessen. Vi, som udviklere, skal prøve at forstå deres arbejdsopgaver, det værktøj de bruger og den måde de tænker på i arbejdssituationerne. For at kunne opnå denne forståelse kræver det at vi har flere testsessioner med brugerne, hvor vi får mulighed for at lade brugerne få indflydelse på de justereringer vi laver på vores design. Se kilde \cite{MCToday}.
+
+Jo bedre vi forstår brugerne og jo mere de er involverede i udviklingen, des bedre vil vi kunne konstruere vores system.
+
+%Tidligere blev der under udviklingen og bedømmelsen af programmer fokuseret på om programmet virkede. Et virkelig godt program var yderligere et der brugte få ressourcer.Programmerne var endvidere rettet mod fagfolk ofte med en eller anden baggrund i computermiljøet. Den periode vi befinder os i nu, er der rigelig computerressoucer og de fleste computerbrugere besidder ikke avancerede computerfærdigheder. Derfor må et program i dag ikke kun bedømmes ud fra om det virker og bruger få ressourcer, men også om det er let at lære. Et virkelig godt program i dag bedømmes ud fra om det fungerer, naturligvis, men også om det er så brugervenligt at det slet ikke skal læres. Dvs. at man som bruger ikke behøver at blive oplært, indøvet eller uddannet i et program for at kunne bruge det. For at opnå dette må brugerne af systemet involveres gennem hele udviklingsprocessen. Modsat problemcentreret programmering, som primært fokuserer på opgaven, så fokuserer man i brugercentreret design på hvordan brugere tilgår arbejdet, både de manuelle og de automatisere metoder. Man ønsker herved at forstå brugernes arbejdsopgaver, forstå deres mentale modeller af disse arbejdsopgaver og forstå det værktøj som de allerede kender. Gentagne cyklusser med brugerinvolverede tests og justeringer er nødvendige inden produktet er færdigt.
+
+\subsubsection{Eventdreven programmering}
+Vi vil gøre brug af eventdreven programmering i projektet. Eventdreven programmering handler om at der kan ske hændelser i programmet, som udløser en effekt. En event kan betegnes som en hændelse eller en handling, og kan være en indtastning på tastaturet eller et museklik. Disse events aktiveres af brugeren af systemet. Hvis systemets events konstrueres på en hensigtsmæssige måde, kan det hjælpe med til at sikre at brugergrænsefladen ikke låser brugeren og bestemmer hvordan brugeren skal interagere med systemet. Der skal ikke være nogen predefineret menu, som bestemmer hvordan der manøvreres rundt i programmet. Programmet skal ikke give brugeren besked på at indtaste data eller bevæge sig efter et fastlagt mønster. Derimod bør brugeren kunne springe frem og tilbage i programmet. Dette sker netop ved at udføre events i brugergrænsefladen.
+
+I det der kaldes et proceduredrevent program, løses en opgave trin efter trin og typisk efter et fastlagt mønster. Bruger indtaster data når programmet giver besked om det og brugeren kan ikke springe frem og tilbage i programmet. Manøvrering forgår gennem en predefineret menu. Både proceduredrevne og eventdrevne programmer når frem til samme resultater, forskellen ligger i hvordan brugeren interagerer med og styrer programmet. 
+
+De gode eventdrevne programmer omfatter brugercenteret design, og de bedste af disse ligger stor vægt på brugernes opfattelse og viden om det miljø de færdes i. Med viden menes der den specialistviden de har om det fagområde de arbejder med. Som udvikler vil ens programmer forbedres, hvis man forstår ens brugeres opfattelse og viden. På baggrund af dette kan man konstruere genkendelige billeder, der giver mening for brugerne.
+
+%Eventdreven programmering er modsætningen til proceduredreven programmering. I proceduredreven programmering løses en opgave trin efter trin. Bruger indtaster data når programmet giver besked om det og brugeren kan ikke springe frem og tilbage i programmet. Manøvrering forgår gennem en predefineret menu. %En af GUI styrker er at den tillader eventdreven programmering.
+
+\subsubsection{Affordance, metaforer og manipulation}
+Affordances kan betegnes som egenskaber for et objekt, der indikerer hvordan man kan interagere med objektet, se kilde \cite{MCToday}. I den virkelige verden kan man 'interagere' med objekter eller genstande ved fysisk kontakt. I computerens verden kan et eksempel være opfindelsen af 'skraldespanden' på computerens skrivebord. For at komme af med dokumenter smides de i skraldespanden. For at slette dokumentet helt, tømmes skraldespanden. For at gendanne dokumentet ledes skraldespanden igennem. Dette er helt paralelt med den virkelige verden, hvor vi ikke ville sige til skraldespanden at den skal tømme sig selv, men derimod, ved fysisk kontakt, tage fat i den og tømme den.
+
+En museknap har den affordance at den kan trykkes ned og dermed produceres der et museklik. Museknappen har ikke andre affordances, der kan eksempelvis ikke trykkes på en bogstavstast. Selve musen er dog et objekt med flere affordances. Selvom den måske passer fint i en menneskehånd er det ikke umiddelbart logisk at den skal bevæges over en overflade før den udfører sin funktion. En mus er nem at bruge for langt de fleste, men først efter man har lært eller opdaget dens affordances. 
+
+En metafor er en billedlig sammenligning mellem to tilsyneladende forskellige kontekster. Et eksempel på en metafor i vores sammenhæng, kan være det plus vi har anvendt som ikon på knappen 'Tilføj', se figur \ref{fig:IkonKnapper}. Helt overordnet og uden for kontekst signalerer plus at addere. I vores system bruger vi dette plus til billedligt at signalere at man med knappen kan addere.
+
+Med manipulation menes der interaktion mellem bruger og system. Man taler om direkte manipulation. I den virkelige verden, er dette den fysiske manipulering, med eksempelvis skraldespanden. I computerverdenen er direkte manipulation det samme, nemlig at man direkte eller ``fysisk'' manipulerer skraldespanden. 
+
+Gode udviklere udnytter brugernes viden om affordances fra den virkelige verdens objekter, for at lave visuelt meningsfyldte og intuitive miljøer. Dette kan opnås ved brug af metaforer. Et sådan design forbedrer brugerinterfacet betydeligt, fordi brugeren hurtigere opfatter meningen. Et sådan design er endvidere langt mere intuitivt end kommandoliniemiljøer med knapper og menuer.
+
+Det er vigtigt at studere sine brugere grundigt og at finde metaforerer der giver mening for dem.  Platformens muligheder for direkte manipulation skal udforskes, som for eksempel det at kunne udføre en ``drag and drop'' hændelse. 
+
+\subsubsection{Principper for godt design af brugergrænseflader\label{principper_for_godt_design}}
+\begin{enumerate}
+\item De interagerbare elementer der indgår i et skærmbillede kaldes for ``widgets''.  Widgtes kan være knapper, menuer, textbokse, scrollbarer med flere. Brugeren skal uden at blive distraheret kunne forudse hvad den pågældende widget kan, ud fra dens udseende. Dette kan man kalde ``Princippet om konsistens på widget-niveau'', se kilde \cite{MCToday}. Princippet går ud på at widgets af samme art skal opføre sig ensartet. Hvis en knap reagerer på ét museklik, så skal alle knapper, af samme art, reagere på ét museklik. Hvis applikationen kræver en ny widget, som opfører sig anderledes end en typisk eller nærtbeslægtet widget, bør man give den nye widget et distinkt udseende, for at komme eventuel forvirring i forkøbet. For at få en widgets udseende til at være selvforklarende, kan man, ved hjælp af metaforer, bruge billedlig sammenligning og genkendelse. 
+
+\begin{figure}[btp]
+  \centering
+    \includegraphics[width=0.99\textwidth]{Billeder/Gui/IkonKnapper.jpg}
+  \caption{Ikoner på knapper.\label{fig:IkonKnapper}}
+\end{figure}
+
+Som det kan ses på figur \ref{fig:IkonKnapper} på side \pageref{fig:IkonKnapper} har vi valgt at sætte ikoner på udvalgte knapper. Målet er, ved at bruge metaforer, at fremme brugerens intuitive forståelse af hvad knappen gør. Problemet er i vores situation blot at vi ikke, igennem sessioner og samtaler med brugerne, i tilstrækkelig grad har undersøgt om de ikoner vi har valgt har samme metaforiske betydning for brugerne som for os. Dette giver en hvis grad af usikkerhed omkring vores valg af metaforer. Vi skal ikke udvikle brugergrænseflader ud fra vores egne opfattelser af metaforer, men inddrage brugeren og observere og bruge deres opfattelser. Under test i afsnittet \ref{TestSession} på side \pageref{TestSession}, kan der læses om hvordan testen af vores applikation gik.
+
+Vi har valgt at lave ikoner til 3 knapper, som alle går igen på de skærmbilleder der er i systemet. Knappen 'Tilføj', hvis formål er at tilføje en kunde eller et økonomisk forhold, er designet med et grønt plus-ikon. På knapper, hvis funktion er at slette en kunde eller et økonomisk forhold, har et rødt kryds som ikon.
+
+\item Brugeren skal kunne forudse et programs opførsel, ved brug af sine erfaringer tilegnet fra andre programmer. Dette kaldes ``Princippet om konsistens på platformniveau''. Konsistens er ikke kun vigtig i forbindelse med widgets, men også i forbindelse med abstraktioner såsom musebevægelser, menuplacering, ikoner og toolbarstil. Der er mange beslutninger vedrørende brugergrænseflader som er specifikke for den enkelte platform. Det er en god ide at finde og følge en god guide til design af brugergrænseflader, rettet mod den platform der arbejdes med. Hvis man føler trang til at forbedre på konventionerne, risikerer man at forstyrre brugernes vante opfattelser, hvilket netop er en af fordelene ved konventionerne; nemlig at sikre konsistens og standardisere design af brugergrænseflader. Hvis man udvikler på tværs af platforme er det vigtigt at holde konsistens med ``moderplatformen'', for ikke at opnå ukonsistens af applikationen på tværs af platformene. Pointen er at brugeren skifter applikation på samme platform, langt hyppigere end de bruger applikationen på tværs af forskellige platforme \cite{MCToday}.
+
+Som nævnt tidligere udvikler vi i et udviklingsmiljø til Microsoft Windows, nemlig Visual Studio. Det er denne platform som vores brugere er vant til at bruge og vil komme til at bruge indenfor applikationens levetid. Ved at bruge Visual Studio får vi en masse ting omkring for eksempel printere og printdialoger til vores rådighed. Dette betyder at vi med minimale anstrengelser kan lave Windowsspecifikke skærmdialoger. Hermed opnår vi den fordel at vores brugere ikke skal sætte sig ind flere nye ting end højst nødvendigt.
+
+\item Enhver brugeradvarsel og fejldialog, som opstår på grund af applikationen, skal ses som en chance for at forbedre brugergrænsefladen. Gode brugergrænseflader har sjældent brug for programadvarsler eller fejldialoger. Undtagelsen er selvfølgelig hvor man ikke kan undlade at meddele om fejl, eksempelvis i forbindelse med hardwarefejl, diskfejl, tabt netforbindelse eller advarsler om at det skridt brugeren er ved at tage er irreversibelt og/eller kan medføre fejl. Ellers ses fejldialoger i brugergrænseflader som en designfejl. Det er bedre at forebygge, frem for at brokke sig over, at brugeren laver fejl. De hyppigste fejl kommer ofte fra ikke-korrekt formateret brugerinput i en uheldig rækkefølge. Dermed er det hensigtsmæssigt at designe brugergrænsefladen til at hjælpe brugerne med at indtaste korrekt data. Hvis programmet kræver formaterede data (datoer, møntenheder med mere) så kan man bruge 'begrænsede' widgets til input, som på hensigtsmæssig måde begrænser brugerens inputmuligheder. Hvis et bestemt programtrin ikke kan udføres ordentligt før brugeren fuldfører andre programtrin fuldstændigt, kan man så vidt muligt skjule det afhængige trin, indtil alle afhængige forhold er fuldførte. For eksempel bruger de fleste brugergrænseflademiljøer nedtonede widgets til at signalere at den pågældene widget ikke kan vælges på nuværende tidspunkt. Man kan altså bruge nedtonede widgets til at begrænse brugerens handlinger til de tilladte. 
+
+Her kan vi gøre to ting.
+
+\begin{itemize}
+\item Det skal synliggøres hvornår en knap er aktiv og hvornår den ikke er aktiv. Med andre ord, hvornår man kan trykke på en knap og hvornår man ikke kan. Dette kan der læses mere om i afsnit \ref{kommentar_til_gui} på side \pageref{kommentar_til_gui}. 
+\item Det andet vi kan gøre er at sikre at felter som for eksempel telefon og personnummer kun kan tage imod tal. Ved at tjekke et felt hver gang noget bliver sat ind i det, kan vi sikre at der kun bliver tastet lovlige tegn. Skulle der eksempelvis blive tastet et bogstav i et felt der kun tager heltal, kan vi slettet dette bogstav. Fra brugerens synspunkt vil det se ud som om at programmet ikke reagerer på andet end tal. Dette gør at der ikke er behov for unødige popup advarsler, hvilket er med til at sikre lovlige indtastninger. Punktet er dog blevet nedprioriteret i vores system, hvorfor vi ikke har fokuseret på området.
+\end{itemize}
+
+\item Vi skal stræbe efter at få vores applikation til at være selvforklarende. Gode applikationer har udførlige manualer og online hjælpematerialer, der forklarer program features og hvordan de bruges til at løse problemer i praksis. De bedste programmer er dem hvor brugeren sjældent har brug for at benytte manualen eller slå op på nettet. Forskellen mellem god og bedst afgøres ofte af hvor selvfoklarende applikationens brugergrænseflade er. Lige fra valget af labels, skriftstørrelser og fonttyper, til måden hvorpå widgets arrangeres på skærmen. Alle designbeslutninger der træffes skal testes af brugere. Målet er at lave en brugergrænseflade der ikke kræver unødige forklaringer og dermed distraherer. Brugergrænsefladen skal være selvforklarende for en bankrådgiver, men ikke nødvendigvis være det for en avisredaktør.
+
+Det vi har gjort i denne situation er at afholde prototypesessioner med brugerne for at finde ud af hvilke ord de sætter på deres arbejde og de processer de er involveret i. Hermed har brugerne i vores system bestemt navngivningen af indholdet i systemet, og dermed har de langt hen af vejen selv leveret teksten til de labels vi benytter. I et par tilfælde har dette ført til at vi som udviklere er blevet lidt forvirrede omkring navngivningen. For eksempel hvornår det hedder et firma og hvornår det hedder et selskab. Det vigtigste her er dog brugbarheden af systemet og at kunden og brugerne er glade.
+
+\item Vi skal undgå tvungen opførsel og adfærd. 
+Programmer der er præget af tvungen opførsel, tvinger brugeren til at udføre opgaver i en bestemt rækkefølge eller på andre måder ændrer på brugerens forventede respons og adfærd. Tvungen opførsel giver brugeren en generel fornemmelse af ubehag, fordi de begrænser mere intuitive og naturlige handlinger. Brugt med omtanke kan tvungen opførsel dog have sine fordele. For eksempel i forbindelse med 'wizards', som gennem tvungen opførsel kan simplificere og guide en bruger gennem komplekse opgaver. Advarsler og fejlmeddelser er ligeledes ofte tvungne, hvilket tvinger brugeren til at tage stilling til et kritisk problem inden de kan vende tilbage til opgaven igen. Tvangen er i dette eksempel nødvendig, men ødelægger også brugerens koncentration og målrettede opførsel, og er derfor en grund til at undgå unødvendige advarsler og fejlmeddelelser. 
+
+De bedste tvungne opførsler er afdæmpede, men ikke skjulte. Eksempel: I et typisk tegneprogram giver valget af en widget en ændret funktion, og giver derfor tvungen opførsel. Der er en tekstfelt-widget til at skrive tekst med, der er en pensel-widget til at male med, der er en figur-widget til at lave figurer med. Dette giver sjældent problemer, fordi den tvungne opførsel er bygget på en analogi fra virkelighedens verden. % ved at vælge tegneinstrumenter er der begrænsninger i farven, teksturen og linietykkelsen der kommer på vores papir. 
+Gode brugergrænseflader ændrer musemarkøren for at give yderligere visuel feedback når et valg er truffet. Så hvis applikationen absolut kræver tvungen opførsel, skal man sørge for at binde den til en stærk metafor og giv brugeren visuel feedback, hvormed det kan forløbe mere naturligt og ligefremt. 
+
+Vi gør, til dels, brug af tvungen opførsel, når brugeren eksempelvis skal oprette en indtægt. Først vælger man hvilken kunde indtægten skal tilhøre, trykker tilføj, vælger indtægten, indtaster de relevante data og trykker tilføj. På den anden side har vi en navigationsbar som gør at brugeren frit kan springe mellem de forskellige skærme, som på den måde sikrer at systemet har en vis fleksibilitet når det kommer til forskellige arbejdsformer.
+
+\item Brugergrænsefladen skal designes så brugeren kan udføre sine opgaver uden at ligge synderligt mærke til brugergrænsefladen i sig selv. Dette kunne kaldes 'Princippet om gennemsigtighed'. Grænseflade-gennemsigtighed sker når brugerens opmærksomhed rettes væk fra selve grænsefladen og naturligt rettes mod opgaven. Dette opnås gennem flere faktorer, inklusivt et skærmlayout hvor både værktøj og information er hvor brugeren forventer de skal være, hvor ikoner og labels giver mening for brugeren og hvor de brugte metaforer er let genkendelige og dermed lette at lære, huske og udføre. At vælge gode metaforer og følge ovennævnte principper er en vigtig start, men den mest direkte måde at sikre en gennemsigtig brugergrænseflade er ved at udføre brugertests gennem hele programmets udviklingsforløb.
+
+Dette er en af de ting vi kunne have gjort anderledes. Vi har brugt tid og kræfter på at få information omkring hvad systemet skal kunne, men vi har ikke brugt tid nok på at undersøge hvor på skærmen brugeren helst ser knapper og elementer placeret. Brugerne har haft mulighed for dette under prototypesessionerne, men der har ikke været fokuseret på det.
+
+Da EIK Banks medarbejdere fra private banking er vant til regnskab og regenark, kunne det være en fordel hvis vi fik medbragt elementer fra regneark. Dette kunne være datagrids i stedet for tekstfelter, i forbindelse med indtastning. Generelt er der, hos afdelingens medarbejdere, en forkærlighed for at få stillet ting op i rækker og kolonner.
+\end{enumerate}
+
+\subsection{Menneskelig opfattelse}
+Når mennesker skal opfatte mange elementer på en gang har vi en tendens, nogle siger at det er et overlevelsesinstinkt, til at gruppere og forudindtage synsindtryk. Ser vi en del af noget, er vi meget hurtige til ubevidst at bygge videre på dette synsindtryk. Dette gør vi for hurtigt at kunne reagere på en fare.
+
+Når det kommer til at tælle mange elementer gør vi brug af forskellige teknikker til at simplificere opgaven. En af disse teknikker går ud på at gruppere elementerne. Skal vi for eksempel tælle prikker på et stykke papir, kan vi hjælpe os selv ved at sætte ring omkring fem tætliggende elementer. Derefter kan man så tælle ringene, gange med 5 og lægge en eventuel rest til. Der er også forskellige teknikker til at gruppere elementer og disse teknikker kommer vi indvpå i afsnittet om Gestaltlovene \ref{Gestaltlovene} på side \pageref{Gestaltlovene}.
+
+Et andet område hvor vi som mennesker laver opdelinger, er når husker tal. For eksempel kan det være svært at huske et telefonnummer. Dette kan gøres nemmere ved at dele telefonnummeret op i mindre dele. For eksempel 12 34 56 78 eller 123 456 78 eller 12 345 678, hvor de to sidste opdelinger ikke er så gode, da vores telefonnumre ikke er delelige med 3. Tricket består i at gruppere på en sådan måde at grupperne er mindst mulige, samtidigt med at der er så få grupper som muligt. 
+Disse to krav er i modstrid med hinanden og det er et kompromis mellem disse der får metoden til at virke. Et andet eksempel på hvor vi deler en opgave op er regnestykker. For eksempel er $14*5=70$, men dette er måske ikke lige til at se. Deler vi derimod opgaven op på en anden måde bliver det måske lidt nemmere. For eksempel ved at sige $10*5+4*5=50+4*5=50+20=70$ eller ved at indse at 14 er en mindre end 15 og så sige $5*15-5*1=75-5*1=70$.
+
+\subsection{Gestaltlovene}\label{Gestaltlovene}
+\subsubsection{Generel teori omkring gestalt}
+Gestaltlovene handler om opfattelse af helheder i et billede. Gestalt er en fri oversættelse af det tyske ord gestellt, der betyder 'opstilt'. Der er mange gestaltlove, der tilsammen beskriver hvordan man kan designe indholdet på skærmbilleder til at hænge sammen. Man kan sige at et godt design hjælper brugeren ved ikke visuelt at distrahere denne fra den egentlige arbejdsopgave. 
+De regler der er relevante i forhold til vores projekt beskrives som følger:
+
+\begin{itemize}
+\item \textbf{Loven om nærhed:}
+Det er vigtigt at elementer der har relation til hinanden, er placeret tæt ved hinanden og dermed opfattes som sammenhængende. Man kan altså danne en gruppering af elementer, ved at placere dem nær hinanden. For eksempel kan en 'label' (læs: tekst), der er placeret for langt fra dens tilhørende 'textbox' (læs: tekstfelt), resultere i at de to elementer ikke opfattes som sammenhængende. Man risikerer yderligere at den pågældende 'label' ligger for tæt på et andet element som den ikke har nogen relation til. Dermed kan deciderede misforståelser opstå, hvor brugeren tror at der skal tastes i et andet felt end det tiltænkte. Loven bruges hermed til at vise hvilke elementer der hører sammen. Dette kan opnås ved et samspil mellem velafstemte mellemrum og brug af rækker og kolonner.
+
+\item \textbf{Loven om lukkethed:}
+For at tydeliggøre sammenhængen af et skærmbilledes elementer, kan man lukke grupper af elementer inde i en ramme, en såkaldt 'groupbox' (læs: ramme). En fornuftig brug af rammer, kan være med til at højne visualiseringen af sammenhængende elementer. Med en fornuftig brug menes at det ikke nytter noget at bruge for mange rammer på samme skærmbillede, hvilket resulterer i et rodet layout.
+
+\item \textbf{Loven om lighed:}
+Man grupperer normalt elementer efter hvor meget de ligner hinanden. Dette betyder at elementer der ligner hinanden er placeret tæt op af hinanden, for at tydeliggøre deres betydning. Rent visuelt kan dette eksempelvis opnås ved brug af fonte, font størrelser og farver. Et eksempel på dette kan være grupperingen af knapperne i værktøjslinien i Word, hvor sidestilnings-knapperne ligner hinanden og dermed grupperes sammen. 
+
+\item \textbf{Loven om symmetri:}
+Denne regel omhandler brugen af linier og symmetri i skærmbilledet. Dette betyder at billedets elementer helst skal flugte med og være visuelt knyttet med hinanden, for at skabe et indtryk af balance og helhed. Hvis der er en tydelig asymmetri i skærmbilledet, vil dette forvirre og distrahere brugeren.
+
+\item \textbf{Loven om kontinuitet:}
+De indirekte linier mellem skærmens elementer, som er baseret på kontinuitet, giver en øget opfattelse af sammenhæng og gruppering. Mennesket har tendes til at følge linier, eksempelvis pile der peger i en retning.
+\end{itemize}
+
+Gestaltlovene omfatter generelle elementer i brugergrænseflade så som menuer, knapper og ikoner, grafer, tabeller, tekst. De forskellige love skal ikke opfattes som særskilte og isolerede fra hinanden, men nærmere som sammenhængende. Sammen giver de en høj grad af logisk visualisering. Det vil sige at gestaltteorien følger princippet om at af helheden er større end summen af delene, se kilde \cite{Gestalt}.
+
+\subsubsection{Vores brug af Gestaltlovene}
+Vi har i vores system brugt de gestaltlove som var relevante for vores system. Nedenfor kan ses eksempler på hvor vi har fundet anvendelse for af forskellige love.
+\begin{enumerate}
+\item Nærhed: Navigeringsknap-menuen.
+
+\item Lukkethed: Groupboxes.
+
+\item Lighed: Indtastnings felter til kunde oplysninger.
+
+\item Symmetri: Navigeringsknap-menuen.
+
+\item Kontinuitet: Navigeringsknap-menuen.
+\end{enumerate}
+
+Se figur \ref{fig:GuiGestalt} på side \pageref{fig:GuiGestalt}.\\
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{Billeder/Gui/GuiGestalt.jpg}
+	\caption{Gestalt i vores gui.\label{fig:GuiGestalt}}
+\end{figure}
+
+
+\subsubsection{Fremtoning}
+\textbf{Ny session}\\
+Først når der skrives i textbox $\Rightarrow$ OK knap enables.\\
+
+\textbf{Indtægtsforhold}\\
+Når ingen person er valgt $\Rightarrow$ 'Slet', 'Rediger' og 'Tilføj' gråtones og disables.\\
+Når en person vælges $\Rightarrow$ 'Tilføj' optones og enables.\\
+Når en indtægt vælges $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+\\
+\textbf{Formueforhold}\\
+Når ingen person er valgt $\Rightarrow$ 'Slet', 'Rediger' og 'Tilføj' gråtones for både 'Aktiver' og 'Passiver'.\\
+Når en person vælges $\Rightarrow$ 'Tilføj' optones og enables for både 'aktiver' og 'passiver'.\\
+Når et aktiv vælges $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+Når et passiv vælges $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+\\
+\textbf{Pensionsforhold}\\
+Når ingen person er valgt $\Rightarrow$ 'Slet', 'Rediger' og  'Tilføj' gråtones og disables.\\
+Når en person vælges $\Rightarrow$ 'Tilføj' optones og enables.\\
+Når en pension vælges $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+\\
+\textbf{Tidligere session, Sessionsvalg}\\
+Når Tidligere sessioner er valgt og ingen session er valgt $\Rightarrow$ 'OK' knappen gråtones og disbles.\\
+Når man vender tilbage til sessionsvalgsform $\Rightarrow$ nusltil alle felter.\\
+Når man skifter fra ny session (hvor OK enables) til tidl session skal OK $\Rightarrow$ disables.\\
+
+\textbf{Kundedata}\\
+Ingen kunder i sessionen $\Rightarrow$ radiobuttons visiblity = false; (gælder ved første load af formen).\\
+Når man trykker på 'RydAlle' knap skal information i alle felter slettes, og radioknapperne til personerne være unchecked.\\
+Når ingen kunde er valgt $\Rightarrow$ 'Slet' og 'Rediger' gråtones og disables. Se figur \ref{fig:KundeData1} på side \pageref{fig:KundeData1}.\\
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{Billeder/Gui/KundeData1.jpg}
+	\caption{KundeData: ingen kunde valgt.\label{fig:KundeData1}}
+\end{figure}
+Når en person vælges på personlisten $\Rightarrow$ 'Slet' og 'Rediger' optones og enables. Se figur \ref{fig:KundeData2} på side \pageref{fig:KundeData2}.\\
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{Billeder/Gui/KundeData2.jpg}
+	\caption{KundeData: en kunde er valgt.\label{fig:KundeData2}}
+\end{figure}
+Når der er 2 person i forholdet $\Rightarrow$ 'Tilføj' gråtones og disables.\\
+
+\textbf{Indtægtsforhold}\\
+Når ingen person er valgt $\Rightarrow$ 'Slet', 'Rediger' og 'Tilføj' gråtones og disables.\\
+Når en person vælges $\Rightarrow$ 'Tilføj' optones og enables.\\
+Når en indtægt vælges $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+
+\textbf{Formueforhold}\\
+Når ingen person er valgt $\Rightarrow$ 'Slet', 'Rediger' og 'Tilføj' gråtones for både 'Aktiver' og 'Passiver'.\\
+Når en person vælges $\Rightarrow$ 'Tilføj' optones og enables for både 'aktiver' og 'passiver'.\\
+Når et aktiv vælges $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+Når et passiv vælges  $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+
+\textbf{Pensionsforhold}\\
+Når ingen person er valgt $\Rightarrow$ 'Slet', 'Rediger' og 'Tilføj' gråtones og disables.\\
+Når en person vælges $\Rightarrow$ 'Tilføj' optones og enables.\\
+Når en pension vælges  $\Rightarrow$ 'Slet' og 'Rediger' optones og enables.\\
+
+\subsubsection{Kommentar til brugergrænsefladen\label{kommentar_til_gui}}
+Noget af det første der falder os, som udviklere, i øjnene er hvor svært det er at se forskel på om en knap er klikbar eller ikke klikbar. Grunden til dette skal finde i farvevalget, hvor baggrunden er mørke grøn og knapperne er grå. Et andet problem er at vi har ladet Visual Studio tage sig af forskellene mellem en klikbar og en ikke klikbar knap. En ting vi kunne havde gjort for at forstærke budskabet om hvorvidt en knap er klikbar eller ej, er at vi kunne havde gjort teksten på den pågældende knap mindre tydelig. Dette kunne vi gøre ved at vælge en tekstfarve som ligger tæt på knappens baggrundsfarve. Samtidig kunne vi havde valgt farverne på knapper sådan at de næsten gik i et med skærmens baggrundsfarve. Dette ser vi dog ikke som værende nødvendigt med de knapper som har ikoner. Disse ikoner har vi i to versioner, en med farve til når knappen er klikbar og en uden farver til når knapperne ikke er klikbare.

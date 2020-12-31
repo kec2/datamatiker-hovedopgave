@@ -1,0 +1,81 @@
+\section{Konklusion}\label{Konklusion}
+
+
+%Brugervenlighed:
+I forbindelse med kravet om brugervenlighed, har vi studeret en del teori vedrørende design af brugergrænseflader og det at skabe brugervenlighed. Ud fra denne teori har vi reflekteret over visse aspekter.
+
+Den generelle teori om design af brugergrænseflader ligger vægt på brugerinddragelse i analyse- og designprocessen. Dette stemmer godt overens med de elementer af eksperimentiel systemudvikling som vi har anvendt. Brugervenligheden har vi opnået ved at inddrage brugerne i Lo-Fi prototypesessioner og på den måde har brugerne fået mulighed for at få deres terminologi med på brugergrænsefladen. 
+
+I forhold til princippet om at vi skal bruge metaforer fra brugernes egen verden og at programmet skal være så intuitivt at eksempelvis fejldialoger ikke er nødvendige, har vi ligeledes medtaget brugernes meninger og ønsker i vores overvejelser. Vi fandt ud af at vi, som udviklere, ikke altid bruger samme metaforer som brugerne. Dette område brugte vi ikke helt nok tid på at analysere, hvorfor vi burde have afholdt en session om emnet med brugerne.
+
+Gestaltlovene, som bygger på menneskers universelle opfattelse af helheder, har vi brugt til at skabe helheder i vores skærmbilleder. Her har vi forsøgt at gruppere relaterede elementer ved siden af hinanden og bruge lukkethed og lighed til at skabe et brugervenligt design. I vores tilfælde har vi kunne gøre brug at flere gestaltlove, hvor vi har kombineret styrkerne fra de enkelte love til at skabe brugervenlighed.
+
+%Prof. Rapport / Crystal:
+Vi erfarede at der fandtes et program i vores udviklingsmiljø, til at skabe professionelt udseende rapporter, nemlig Crystal Reports. Værktøjet har vist sig komplekst at arbejde med og det største problem vi har haft i dette regi, er at vi ikke kendte værktøjet på forhånd. Vi manglede erfaring med det og havde ikke tid til at sætte os ind i det. Hvis udprints\-funk\-tionali\-teten i systemet skal nå et niveau i overensstemmelse med EIK Banks krav, ville mere erfaring i brugen af Crystal Reports være nødvendig. Vi havde forventninger og ønsker om mere, men på dette punkt må vi dog sande at planlægningen ikke tillod dette. Vi lærte, trods alt, at man kan blive nødt til på et tidspunkt at sige 'stop' og ikke lade problemet ødelægge vores muligheder for at overholde tidsplanen og at udføre de opgaver der venter.
+
+Med hensyn til det professionelle udseende på systemets udprint er vores erfaring at det har været svært at få sat ord på hvad et professionelt look egentlig er. Der har været nøgleord som 'konservativt udseende', logoer, fonte og så videre på banen, men ud fra dette har vi ikke kunne danne os en helt præcis opfattelse. Derfor har vi ikke været gode nok til at stille de rigtige spørgsmål til kunden. 
+
+
+%Gennemskuelighed og overskuelighed:
+Kravet om overskuelighed og gennemskuelighed overfor kunden, kan vi ikke sige at have opfyldt, da vi ikke har kunne formatere systemets udprint på en overskuelig måde.\\
+
+%Første side = en oversigt, efterfølgende sider er detaljerne opdelt efter emner. (Ang fremskrivninger, totalsumme, lodrette linier alá regnskaber, kunder listet ved siden af hinanden (person1, person2 og begge). ) Kunne ikke løses tilfredsstillende pga ovennævnte problemer med Crystal Reports.
+
+På grund af den begrænsede tid vi, i projektet, har haft til rådighed, føler vi at det var den helt rigtige beslutning at inddrage elementer fra eksperimentiel- og agil systemudvikling i processen. Det har, blandt andet ved hjælp af prototyping, betydet at vi er kommet hurtigt og effektivt igang og vi har haft mere tid til udviklingen af produktet, end vi ville have haft hvis vi havde fulgt UPs metodologi. Prototyping har endvidere også været en erfaring for virksomhedens medarbejdere, der både blev taget med i og fik indsigt i processen, og fik mulighed for at tænke en ekstra gang over hvad det egentlig er de har brug for. Ved hjælp af Scrum-morgenmøderne, som giver en løbende opfølgning på processen og det arbejde der udføres, har vi sørget for hele tiden at holde os på rette spor og tilpasse os situationen. Dette har virket godt og effektivt. Hertil har ugeplanlægningen og fredagsbriefingen bidraget yderligere.\\
+
+%STIKORD:
+%modulært      + udvidelsvenligt            ->   design patterns
+%brugervenligt + udskrive pro. rapporter    ->   eksperimentel S.U. + teori om brugervenlighed.
+%evt refleksion : SVN osv.
+
+%Design Patterns: 
+Med hensyn til spørgsmålet om brugen af design patterns for at gøre det nye system modulært og udvidelsesvenligt, kan vi konkludere følgende.
+
+Ved at bruge Model View Controller har vi fået delt arkitekturen op på en sådan måde at modellaget er fuldstændig uafhængigt af kontrol- og viewlaget. Dette betyder at vi kan lave nye brugergrænseflader eller ændre i eksisterende uden at det får nogen indflydelse på modellaget. Dermed kan vi se systemet som to dele, nemlig kontrol og view som den ene del, og model som den anden del. Kigger vi nærmere på de dele der indgår i modellaget, så har de to design patterns som vi har brugt, ikke nogen indflydelse på om disse dele i sig selv er modulære og udvidelsesvenlige. 
+
+Når design patterns ikke kan opfylde ønsket om modularitet, bliver man nødt til at designe og kode sig ud af problemet. Her kan man konstruere systemets dele med en høj grad af samhørighed og lav kobling. Dette har vi eksempelvis opnået med vores database klasse 'DBAccess'. Hvis vi skifter eller flytter databasen, så skal der kun rettes ét sted i koden. Dermed opfattes 'DBAccess' som et modul.
+
+Det andet design pattern vi har valgt at benytte os af, nemlig Singleton, har ikke bidraget til en højere grad af modularitet og udvidelsesvenlighed. Vi har udelukkende brugt dette af ydelse- og strukturmæssige grunde.
+
+Ved at bruge arv til implementeringen af entiteterne i 'indtægter', 'aktiver', 'passiver' og 'pensioner', sikrer vi at de generelle databehandlinger, som er fælles for alle entiteter, er samlet et sted og kan genbruges når der udvides med flere typer entiteter.\\
+
+
+EIK Bank står med andre ord med et system hvor den grundlæggende arkitektur er på plads, i form af MVC strukturen. Dette åbner for EIK Banks muligheder for at udvide systemet. Den grund\-læggende funktionalitet i delsystemet indtægtsforhold er lavet, og kan derfor fungere som skabelon for funktionaliteten i formue- og pensionsforhold. Når dette er på plads er systemet ikke langt fra at kunne udvides med fremskrivningsfunktionalitet. Systemet giver yderligere EIK Bank en centraliseret database over de sager de arbejder med i private banking afdelingen. Systemet giver på nuværende tidspunkt ikke mulighed for, på ordentlig vis, at printe en pæn og overskuelig rapport ud til kunden.
+
+Udover dette har EIK Bank fået et indblik i hvad det kræver for at lave et specialiseret system fra bunden, som vi håber kan bruges.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Med SVN versionsstyringssystemet i baghånden har vi undgået mange tilbageslag i form af overskrevet og mistet materiale, og vi har som gruppemedlemmer arbejdet på samme data på effektiv og kontrolleret vis. Værktøjet er bestemt anbefalelsesværdigt og oplagt til projekter som vores. SVN er et styringsværktøj vi ikke gerne ville have været foruden.
+
+%\subsection{Systemet}
+%Med hensyn til valg af tekniske løsninger til udviklingen af det system som projektet bygger på, har der været begrænsende faktorer som vi har måttet rette os ind under. Her tænkes på valget af database, hvor Microsoft Access ikke er den optimale løsning og ikke vores foretrukne valg. Vi har erfaret at egne ønsker om og opfattelse af valg af værktøjer ikke altid kommer først og at man må tilpasse sig de mulighed som kunden og situationen stiller for en. Dette har vi gjort og samtidigt gjort EIK Bank opmærksomme på vores tanker omkring problemstillingen.
+	
+%Design af brugergrænseflader.
+
+%Via opbygningen af skærmbillederne, som langt hen af vejen bygger på de prototyper vi har lavet, har EIK Banks medarbejdere udtrygt tilfredshed med graden af brugervenlighed. Applikationen er nem at gå til og det tager ikke lang tid at lære at anvende systemets funktionalitet.
+
+%Vi er meget tilfredse med vores brug af design patterns. Vi havde fra begyndelsen et ønske om at bruge design patterns, da vi som gruppe, i semesteret inden hovedopgaven, har berørt området i en studiekreds. Vi mener selv at have konstrueret en godt opdelt og effektiv arkitektur i applikationen, som kan udvides da den er modulært opbygget.
+
+%\subsection{Overordnet konklusion}
+
+%Som udviklere har vi ikke kun fået rigtig god ``hands on'' erfaring med aspekterne i projektstyring og selve projektarbejdet, men også god erfaring på mange andre væsentlige punkter. Vi har befundet os i et rigtigt arbejdsmiljø, et nyt og fremmed sted hvor vi har mødt nye mennesker. Vi har stilet mod at være udadvendte og oplysende om vores arbejde, hvilket vi selv føler har givet en positiv effekt og har skabt en god kontakt til virksomhedens medarbejdere.
+
+%Som afrunding vil vi konkludere at vi føler at have løst opgaven i en tilfredsstillende grad. I forhold til koden har vi konstrueret kernen af applikationen og løst de væsentligste problemer. Her tænkes både på arkitekturen, databasen og tilgangen til denne, funktionaliteten i applikationen, samt den basale funktionalitet i Crystal Reports rapporten. Dette afspejles i den kørende del af applikationen. Det resterende arbejde, udover arbejdet med at formatere og opsætte Crystal rapporten, afspejles meget af det arbejde der er lavet indtil videre, hvorfor færdiggørelsen af applikationen er afhængig af hvor meget tid der er til rådighed.
+
+
+\newpage
+\section{En tak til EIK Bank}
+Vi vil gerne benytte lejligheden til at takke EIK Bank for deres store engagement i dette projekt. Vi har som studerende fået stillet kontor, computere og meget andet til rådighed, som vi har kunnet benytte alt det vi har måttet ønske, indenfor bankens åbningstid. Vi har kunnet spørge bankens medarbejdere efter behov og de har stillet sig til rådighed når vi har haft brug for det. Disse forhold gav os et godt grundlag for at kunne fokusere på opgavens problemstillinger, fremfor mere praktiske problemer.

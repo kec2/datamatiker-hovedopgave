@@ -1,0 +1,10 @@
+\paragraph{I dag d. 10-03-06}
+
+\begin{itemize}
+\item Hentet litteratur omkring design af brugergrænseflader og brugervenlighed på Nbs bibliotek. Har reserveret en bog mere (online), som skal hentes.
+\item Lavet er regelset for hvornår elementer på de enkelte skærme skal være synlige og brugbare. Disse regler skal implementeres.
+\item Udsendt invitation til fredags-briefing i morgen.
+\item Ændret 'btnIndtaegterOK' til 'btnIndtaegterTilfoej' og fjernet dispose fra denne knap. 'Anuller' er omdøbt til 'Afslut'. Hermed kan man tilføje så mange poster man vil uden at skulle forlade skærmen.
+\item Lavet funktionalitet til treeview der loader listen og add'er summer på de enktelte indtægts-typer.
+\end{itemize}
+

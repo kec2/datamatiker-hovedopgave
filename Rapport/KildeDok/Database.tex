@@ -1,0 +1,433 @@
+\newpage
+\section{Database}\label{Database}
+
+Vi har brugt en del tid i løbet af den første uge på af finde ud af hvilken databaseløsning vi kunne bygge EIK Banks nye system op omkring. Umiddelbart så vi tre mulige løsninger.
+
+\begin{enumerate}
+\item EIK Bank har i forvejen et samarbejde med SDC\footnote{Sparekassernes Data Central}, hvor SDC leverer alt det nødvendige hardware og software. Vi tænkte at SDC måske havde eller kunne sætte en databaseserver op som applikation, som vi kunne køre op imod. Det kunne de sådan set godt, men det koster omkring 50.000,- i oprettelse og ca. 3.000,- om måneden, og det ville så være en IBM DB2 databaseserver. Det dur ikke, dels fordi at det er for dyrt (vi havde slet ikke tænkt på at det kostede penge) og dels fordi at DB2 er alt for stort i forhold til det vi skal bruge.
+\item En anden løsning kunne være at sætte en lokal database server op i EIK Bank. Det har der ikke umidelbart været stemning for. Det handler mest om at der ikke er ressourcer, i form af arbejdskraft, til at vedligeholde en sådan server.
+\item EIK Bank har hos SDC en filserver, som alle medarbejdere har adagang til. På denne filserver kunne vi lægge en databasefil, i form af en Access database.
+\end{enumerate}
+
+Konklusionen er at vi vælger mulighed nr. 3. Dette er ikke det mest optimale valg, da der er flere problemer med Access.
+
+For det første er der en performancemæssig faktor, hvor Access ikke leverer nogen særlig god ydelse.
+
+Yderligere er der problemet med at en Access database, eftersom det bare er en fil, ikke tager hånd om problemet med samtidig skrivning til samme data i databasen. Der er ikke nogen applikation der tager hånd om, styrer og beskytter databasen.
+
+Vi er stødt på flere, mere generelle, databaseproblematikker.
+Under tilgang til databasen kan der opstå problemer. Problemet kaldes 'Lost Update': Konsulent 1 tager data om kunde X med ud til et møde med kunde X og laver en masse rettelser.
+Konsulent 2 tager, i dette tidsrum, adgang til databasen og laver nogle små rettelser i selvsamme data til kunde X og tilføjer sine rettelser til den centrale database. Konsulent 1 kommer tilbage og vil nu uploade sine rettelser om kunde X, fra sin bærbare computer til den centrale database. Problemet består i at de rettelser konsulent 2 har lavet, bliver overskrevet af konsulent 1. Og dermed vil en opdatering blive tabt. 
+
+Problemet er ifølge EIK Bank ikke tilstede da to konsulenter aldrig arbejder på de samme kunder. Det vil sige at der eksisterer et 1:1 forhold mellem konsulent og kunde. Vi må derfor antage at sandsynligheden for at problemet skulle opstå i praksis er meget lille. Vi vil dog, som udviklere, mene at det er nødvendigt at tage hånd om problemet, da man ikke med hundrede procent sikkerhed kan afvise at problemet kan forekomme. Det er et fremtidsaspekt at den administrative afdeling skal stå for indtastningen, hvorfor man ikke kan afvise at en rådgiver og en administrativ medarbejder kan komme til at tilgå samme kunde samtidigt.
+
+Når konsulenten er ude hos kunden kan konsulenten ikke vide om der vil være netadgang eller ej. Det betyder at konsulenten skal have data om kunden med hjemmefra. Når konsulenten kommer hjem igen skal han lægge de nye data ind i databasen. Vi kunne altså lave en løsning, som gemmer data lokalt på computeren, når der ikke er kontakt med den centrale database. Den gemte data skal tilføjes til den centrale database når rådgiveren kommer tilbage til EIK Bank. Senere har vi tænkt at rådgiveren kan koble op til den centrale database med et mobilmodem. Denne løsning kræver dog en del mere arbejde, i form af en webservice, der vil kræve en webserver.
+
+\subsection{Mapping af database}
+Med udgangspunkt i vores klassediagram skal vi have konstrueret en database. Dette gør vi ved at 'mappe' fra vores konceptuelle model, hvilket vil sige vores klassediagram, til en relationel model. Til dette formål benytter vi os af en 8 trins algoritme. Vi skal finde:
+
+\begin{enumerate}
+\item Regulære klasser. Vi har regulære klasser i form af Kunde, Indtægt, Pension, Aktiv og Passiv.
+\item Svage klasser og identificering af én til mange (1:M) relationsforhold. Dem har vi ikke nogle af.
+\item Èn til én (1:1) relationsforhold. Disse har vi ikke nogle af. Hvis vi ser på klasse\-diagrammet ser vi (1:1) forhold mellem en entitet og en kontainer. Men da disse kontainerklasser ikke er regulære klasser, skal der ses bort fra dette.
+\item Regulære (1:M) relationsforhold. En sådan relation findes mellem Session og Kunde. Da Kunde er på mange-siden, inkluderer vi Sessions primærnøglen som fremmednøgle i Kunde. På den måde kommer Kunde til at pege på den Session som kunden er en del af.
+\item Mange til mange (M:N) relationsforhold. Disse har vi ikke nogle af.
+\item Flerværdigede attributter. Disse har vi ikke nogle af.
+\item Ternære relationsforhold. Disse har vi ikke nogle af.
+\item Udvidet klassediagram.
+Dette går ud på at mappe 'specialisering og generalisering' til databasen. Der er 4 forskellige måder hvorpå vi kan gøre dette. Der tages udgangspunkt i den arv der er i Aktiv, som er superklassen, og de forskellige aktiver (aktier, obligationer mv.) som er subklasser.
+\item[A] Vi har valgt denne model, hvor vi laver et relationsskema for hver klasse og inkluderer primærnøglen fra superklassen som fremmednøgle i subklassen. Det har den fordel at vi ikke får redundant eller unødige 'null' atributter.
+\item[B] En anden version går ud på at lave et relationsskema for hver subklasse. Dette giver problemer når der skal søges, da der i så fald skal laves en join af subklasserne. Dette betyder at der skal søges i flere tabeller for at finde det man søger efter. Et andet problem er, at de data som subklasserne har til fælles vil blive repræsenteret redundant. 
+\item[C] En tredje løsning er et relationsskema for superklassen med attributterne fra alle subklasserne, plus een attribut til at skelne mellem subklasserne. Denne løsning bruges når der er tale om disjunkte attributter i subklasser, hvormed der menes forskellige, ikke-overlappende attributter. Problemet er her at der vil være unødigt mange null attributer
+\item[D] En fjerde løsning er et relationsskema for superklassen med attributterne fra alle subklasserne, plus en attribut der agerer som flag til alle subklasserne. Denne løsning bruges når der er tale om overlappende attributter i subklasser. Der er de samme problemer som med punkt C. Vi kan med fordel gøre brug af denne model når Pensionsforhold og dens subklasser skal mappes. 
+\end{enumerate}
+
+\subsection{Hvordan skal vi indlæse data fra databasen\label{databasePerformence}}
+Vi skal nu kigge på hvordan vi kan konstruere tilgangen til databasen, i henhold til det at læse data ind i datastrukturen, ved programmets opstart. Hvor meget skal der hentes fra databasen?
+Skal det hele hentes på en gang eller skal det deles op? Hvor ofte skal der hentes data? Disse er overordnede spørgsmål som vi vil besvare i det efterfølgende.
+
+Følgende algoritme beskriver hvorledes data hentes fra databasen og oprettes i datastrukturen.
+\begin{enumerate}
+\item Hent alle sessioner fra databasen.
+\item Opret en session i datastrukturen.
+\item Hent de personer, fra databasen, der hører til den session
+\item Opret en person i datastrukturen.
+\item Hent alle indtægtsforhold, fra databasen der hører til den person.
+\item Opret disse indtægtsforhold i datastrukturen..
+\item Hent alle formueforhold/Aktiver, fra databasen der hører til den person.
+\item Opret disse formuefhold/Aktiver i datastrukturen..
+\item Hent alle formueforhold/Passiver, fra databasen der hører til den person.
+\item Opret disse formueforhold/Passiver i datastrukturen..
+\item Hent alle pensionsforhold, fra databasen der hører til den person.
+\item Opret disse pensionsforhold i datastrukturen..
+\item Hvis der er flere kunder, gå til punkt 4.
+\item Hvis der er flere sessioner, gå til punkt 2
+\item Færdig.
+\end{enumerate}
+
+Da EIKBank i skrivende stund har omkring 1500 sessioner og hver session har 1,5 person med hver 14 forskellige forhold, så bliver det til 31500 kald til databasen. Dette skal kunne gøres mere effektivt, hvilket beskrives i de efterfølgende afsnit.
+
+Test af tilgangen til databasen.
+\lstset{language=[Sharp]C, % fortæller hvilket sprog koden er skrevet i.
+  basicstyle=\small, breaklines=true}
+
+\begin{lstlisting}
+Public static void main(String[] args){
+   Console.WriteLine(System.DateTime.Now);
+   for (int i = 0; i < 10000; i++)
+   {
+      DBAccess.getDBInstance().ExecuteQuery("select * from kunde");
+   }
+   Console.WriteLine(System.DateTime.Now);
+   Console.ReadKey();
+}
+\end{lstlisting}
+\begin{verbatim}
+start output : 20-02-2006 11:09:01
+slut output  : 20-02-2006 11:16:53
+\end{verbatim}
+
+I ovenstående kode bliver databasen tilgået 10.000 gange, samt at der er udskrevet start- og sluttidspunkt. Denne test er udført med en OLEDB forbindelse. Databasen ligger på samme maskine som koden. Det tog altså 7 minutter og 52 sekunder. Det giver ca. 22,7 forspøgelser pr sekund.
+En loadtid på små 8 minutter er selvsagt ikke tilfredsstillende og vi skal finde en bedre løsning. 
+
+En anden ting man kunne gøre var kun at læse session og kunder ind fra databasen. Det giver så kun 
+$1500*1,5=2250$ tilgange til databasen, som vil tage 2250/22,7 = 1 minut og 40 sekunder, hvilket 
+heller ikke er helt godt nok.
+
+En tredje ting man kunne gøre er at hente alle sessionerne ind og oprette dem. Derefter hentes alle personerne fra databasen og man kører så de $1500*1,5=2250$ gange gennem datastrukturen og opretter personerne. Det giver i alt to tilgange til databasen som tager under 1 sekund, men en køretid i datastrukturen som siger $f(O)=Ln(2250)$, hvor det til de to første metoder er $f(O)=1$. Det er denne metode vi vil bruge. F(O) er store o notation.
+
+Senere skal alle kundens forhold hentes fra databasen, hvilket giver 21 (en for hver tabel) kald per kunde, men der hentes kun data for de kunder der er i en session. Det vil giver max 42 kald til databasen. Det giver os 44 kald til databasen og en forsinket opstart på 2 sec. Hermed har vi nået en mere realistisk tilgang til databasen.
+
+Der er ikke noget krav fra kundens side om at systemet skal være hurtigt til at starte op. Så den eneste grund til at bruge krudt på det her er, at det ikke er hensigtsmæssigt at vente 5 min. på at et program starter op. (Det forventes dog inddirekte at programmet har en "normal" responstid, hvilket vil sige at man højest skal vente i et par sekunder)
+
+Med hensyn til en eventuelt fremtidig opgradering af databasen, er det et af kravene til systemet at det skal være tilpas modulært opbygget, så kun DBAccess modulet skal ændres. Dog er SQL-kaldene i flere tilfælde specifikke for Microsoft, hvorfor også SQL-kaldene skal revurderes og skrives om til normal SQL standard. Et eksempel på dette er vores brug af ordet 'Session' som et tabelnavn i databasen. Da dette er et reserveret ord i OLEDB (Jet x.x) driveren, skal navnet i Microsoft SQL-sætningen skrives som '[Session]'. Dette vil ikke virke med almindelig SQL-standard.
+
+\subsection{Hvordan skal vi skrive data til databasen?}
+
+En af grundene til at vi skal kigge nærmere på dette, er netop Access's problem med at den ikke tager højde for samtidighedsproblemet\footnote{samtidig skrivning til databasen}. Derfor er vi nødsaget til selv at lave en konstruktion der beskytter os mod dette. Ud over dette skal vi igen overveje de performance- og sikkerhedsmæssige forhold.
+
+Der er to måder at gribe sagen an på:
+
+\begin{enumerate}
+\item Der gemmes kun når en session afsluttes.
+\item Der gemmes hver gang for eksempel en 'aktie' eller en 'pension' bliver oprettet og/eller ændret.
+\end{enumerate}
+
+For at sikre konsistensen i databasen, er der nogle skridt der skal tages. Man kunne for eksempel gøre det på en sådan måde at der altid er en tom record i databasen, som altid har det højeste id. 
+
+Det man så skal gøre, når en ny post oprettes, er:
+\begin{enumerate}
+\item Fra databasen vælges den tomme tupel, ved: SELECT id FROM tablenavn WHERE kolonnenavn='tom'; Den skal bruges til at gemme den nye post i.
+\item Man indsætter en ny tom tupel med et nyt max(id).
+\item Man opdaterer den tupel med det tidligere max(id).
+\item Hvis der er tale om at gemme hver gang en post oprettes, så skal denne også oprettet i datastrukturen.
+\end{enumerate}
+
+Herunder ses et eksempel på hvordan koden ser ud til 'gem kunde'.
+\lstset{language=[Sharp]C, % fortæller hvilket sprog koden er skrevet i.
+  basicstyle=\small, breaklines=true}
+
+\begin{lstlisting}
+public void SaveKunde(int sessionID_, string navn_, long cpr_, string adresse_, int postnr_, int telefon_, int mobil_, string email_, int civilStatus_, bool harBoern_)
+{
+//Finder den tomme post
+  string sql = "SELECT kundeid FROM kunde WHERE navn='Empty'";
+  DataSet myDataSet = new DataSet();
+  myDataSet = DBAccess.getDBInstance().ExecuteQuery(sql);
+  int kundeID = 0;
+            
+  try
+  {
+    kundeID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][0].ToString());
+  }
+  catch (NullReferenceException nre)
+  {
+    Console.WriteLine(nre.Message);
+  }
+            
+  String getDefaultSessionIDSql = "SELECT sessionid FROM [session] WHERE raadgiver = 	'Empty'";
+  myDataSet = new DataSet();
+  myDataSet = DBAccess.getDBInstance().ExecuteQuery(getDefaultSessionIDSql);
+  int defaultSessionID = 0;
+            
+  try
+  {
+    defaultSessionID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][0].ToString());
+  }
+  catch (NullReferenceException nre)
+  {
+    Console.WriteLine(nre.Message);
+  }
+            
+  //Oprette en ny tom post
+  String setTomtObjekt = "INSERT INTO kunde(navn, sessionid, postnr) VALUES ('Empty'," + defaultSessionID + ", 800)";
+  Console.WriteLine(DBAccess.getDBInstance().ExecuteNonQuery(setTomtObjekt).ToString());
+	
+  //Opdatere den tidligere tomme post
+  sql = "UPDATE kunde SET sessionid="+sessionID_+", navn='"+navn_+"', cpr="+cpr_+", adresse='"+adresse_+"', postnr="+postnr_+", telefon="+telefon_+", mobil="+mobil_+", 	email='"+email_+"', civilstatus="+civilStatus_+", harboern="+harBoern_+" where 	kundeid="+kundeID;
+  Console.WriteLine(DBAccess.getDBInstance().ExecuteNonQuery(sql));
+
+  //Sætter ind i datastrukturen.
+  addKunde(sessionID_, kundeID, navn_, cpr_, adresse_, postnr_, telefon_, mobil_, email_, civilStatus_, harBoern_);
+}
+\end{lstlisting}
+
+Denne algoritme virker kun når en kunde skal oprettes i databasen. Skal vi derimod oprette en 
+indtægt, et aktiv eller et passiv, så skal algoritmen være anderledes.
+
+Den ser sådan ud.\label{gem-algoritme}:
+\begin{enumerate}
+\item Vælg DEN Indtægt som peger på kunden med navnet 'Default'.
+\item Opret en ny Indtægt der peger på kunden med navnet 'Default' (der er nu 2 tomme tupler).
+\item Opdater indtægten fra trin 1 så den peger på den aktuelle kunde.
+\item Opret for eksempel en AktieIndkomst, som peger på Indtægten fra trin 1.
+\item Vælg den AktieIndkomst som peger på Indtægten fra trin 1.
+\item Opret AktieIndkomsten i datastukturen.
+\end{enumerate}
+
+Herunder ses et eksempel på 'gem aktieindkomst'.
+\lstset{language=[Sharp]C, % fortæller hvilket sprog koden er skrevet i.
+  basicstyle=\small, breaklines=true}
+
+\begin{lstlisting}
+public override void GemIndtaegt()
+{
+//trin 1
+  string sql = "SELECT indtaegtid, kunde.kundeid FROM indtaegt inner join kunde on indtaegt.kundeid = kunde.kundeid WHERE navn='Default'";
+  DataSet myDataSet = DBAccess.getDBInstance().ExecuteQuery(sql);
+  int indtaegtID = 0;
+  int kundeID = 0;
+
+  try
+  {
+    indtaegtID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][0].ToString());
+    kundeID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][1].ToString());
+  }
+  catch (NullReferenceException nre)
+  {
+    Console.WriteLine("AktieIndkomst.GemIndtaegt 1 : " + nre.Message);
+  }
+
+//trin 2
+  sql = "INSERT INTO indtaegt (kundeid) VALUES (" + kundeID + ")";
+  DBAccess.getDBInstance().ExecuteNonQuery(sql);
+
+//trin 3
+  sql = "UPDATE indtaegt SET kundeid=" + KundeID + " WHERE indtaegtid=" + indtaegtID;
+  DBAccess.getDBInstance().ExecuteNonQuery(sql);
+
+//trin 4
+  sql = "INSERT INTO aktieindkomst (indtaegtid, udbytte, kursgevinst) values ("+indtaegtID+","+udbytte+","+kursGevinst+")";
+  DBAccess.getDBInstance().ExecuteNonQuery(sql);
+
+//trin 5
+  sql = "SELECT aktieindkomstid FROM aktieindkomst WHERE indtaegtid="+indtaegtID;
+  myDataSet = DBAccess.getDBInstance().ExecuteQuery(sql);
+
+  try
+  {
+    aktieIndkomstID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][0].ToString());
+  }
+  catch (NullReferenceException nre)
+  {
+    Console.WriteLine("AktieIndkomst.GemIndtaegt 2 : " + nre.Message);
+  }
+
+  IndtaegtID = indtaegtID;
+  AktieIndkomstID = aktieIndkomstID;
+}
+
+public void GemAktieIndkomst(int udbytte_, int kursgevinst_)
+{
+  AktieIndkomst a = new AktieIndkomst(0, kundeID, 0, udbytte_, kursgevinst_);
+  a.GemIndtaegt();
+//trin 6
+  indtaegter.Add(a);
+}
+\end{lstlisting}
+
+Denne konstruktion sikrer at chancen for at to personer gemmer samtidigt på samme id, er blevet meget lille. Den gør også det at der altid er et tomt id at gemme på. Den gør det også muligt at oprette en entitet i datastrukturen med alle attributter. Alternativet er selv at skulle fastsætte id'er, men så skal man selv holde styr på hvem der kan oprette hvilke id'er og hvilken værdi de skal have, for ikke at komme til at oprette to ens id'er. Et andet alternativ er at indsætte sin data i databasen for så at hente den ud igen med det, fra databasen oprettede, nye id. Problemet er her at man ikke ved hvilket id entiteten har fået, da der kan være flere som gemmer samtidigt. Når man så spørger efter den med max(id) risikerer man at få fat i den forkerte entitet. Hvis ikke der gemmes når en entitet er oprettet, så får den ikke noget id og så kan det blive svært at identificere objektet i datastrukturen. For at summere op, så har vi valgt at gemme data i databasen hver gang man i programmet opretter en entitet, og samtidig at oprette denne i datastrukturen. Dette betyder at vi benytter os af de to algoritmer som er beskrevet ovenfor.
+
+\subsection{Normalisering af databasen}
+
+Når vi nu har fået lavet vores database, er det tid til at se på om den er konstrueret på en hensigtsmæssig måde. Med hensigtsmæssigt menes om den logiske databasestruktur er optimeret mest muligt. Det vil sige at finde betydningen af data og sammenhængen mellem disse. Vi skal finde og fjerne redundant data, og vi skal sikre entydig identifikation af data. Det er også hensigtsmæssigt at se på mulige fremtidige ændringer, og i den sammenhæng at se på om det er nemt eller svært at udvide med en alternativ database. 
+
+For at vi kan gøre disse ting skal vi undersøge betydningen af data. For eksempel kan vi se på hvad en kunde er i EIK Banks verden. Kort sagt består en kunde at persondata og fra nul til mange indtægter, formueforhold og pensioner. Kundetabellen, som kan ses nedenfor, er også et godt eksempel på en tabel hvor man typisk kan finde redundant data. Redundant data forkommer når to eller flere kunder har adresse i samme by og postnr. Det giver problemer når det utænkelige sker, at en by skifter navn eller at byen skifter postnr. Det betyder at opdateringen af disse 
+data kan resultere i inkonsistent data. Til at hjælpe os med at optimere en logisk datastruktur gør vi brug af normalisering. Normalisering forgår i flere trin, startende fra første normalform til femte normalform og hvert trin sikrer at visse problemer ikke kan opstå. Når en database for eksempel er normaliseret efter tredie normalform, så opfylder den også første og anden normalform.
+
+For at vores database kan siges at opfylde 1. normalform skal
+hver tupel have en entydig identifikation\footnote{læs: nøgle}. Det betyder at en delmængde af identifikationen ikke alene må kunne bruges som identifikation. Alle felter skal være atomariske, hvilket vil sige at de ikke må indeholde lister, arrays med flere. Det betyder også at der ikke må være en repeterende delmængde af felter i en tupel. Der skal være en fast tupel længde. Til hver tabel skal der være en fast tupel type. Det vil sige at en tupel i en tabel altid skal bestå af de samme felter.
+
+De to sidste punkter kan vi ikke undgå at opfylde. Til session har vi valgt at lave et sessionid som identifikation på en tupel. Da en rådgiver sagtens kan være en del af flere sessioner samme dag med samme tomme note, kan vi ikke bruge nogle eller en kombination af disse felter som identifikation. Derfor bruger vi sessionid som identifikation og derved er første punkt opfyldt. Session indeholder ikke nogle lister, hvormed andet punkt også er opfyldt.
+
+For at opfylde 2. normalform skal databasen være på 1. normalform, og
+alle ikke-identifikationsfelter skal være afhængige af hele identifikationen. Det betyder at hvis 
+der er en identifikation som er sammensat af flere felter, så skal ikke-identifikationsfelterne være afhængige af alle identifikationsfelterne.
+
+Da vi ikke har nogle sammensatte identifikationer opfylder vores database 2. normalform.
+
+For at opfylde 3. normalform skal databasen være på 2 normalform, og alle ikke-identifikationsfelter må ikke være transitivt afhængige af identifikationen. Dette betyder at et felt i en tabel er afhængig af et andet felt i anden tabel, som så er afhængig at identifikationen.
+
+Et klassisk skoleeksempel på dette er postnr og by problematikken, hvor by er afhængig af postnr, som igen er afhængig af identifikationen. Dermed er By transitivt afhængig af KundeID. Det man gør, og som vi også har gjort, er at skille by ud i en tabel for sig med identifikationen postnr. Postnr i kunde-tabellen laver vi om til en fremmedidentifikation.
+
+Nedenfor ses et udsnit af vores tabeller.
+
+\lstset{language=SQL, % fortæller hvilket sprog koden er skrevet i [dialekt].
+  basicstyle=\small, breaklines=true}
+
+\begin{lstlisting}
+CREATE DATABASE eikbank;
+
+CREATE TABLE session(
+  sessionid  AUTOINCREMENT PRIMARY KEY,
+  raadgiver  TEXT,
+  dato       TEXT, //Her kunne vi brugt et 'date' istedet for text, men det giver tit for mange problemer med computer installationer, programmeringssprog og databaser.
+  note       TEXT
+);
+
+CREATE TABLE kunde(
+  kundeid     AUTOINCREMENT PRIMARY KEY,
+  navn        TEXT,
+  cpr         LONGINT,
+  adresse     INT,
+  postnr      INT FOREIGN KEY REFERENCES postnr,
+  telefon     INT,
+  mobil       INT,
+  sessionid   INT FOREIGN KEY REFERENCES session,
+  civilstatus INT,
+  harboern    BOOL
+);
+
+CREATE TABLE postnr(
+  postnr  AUTOINCREMENT PRIMARY KEY,
+  by      TEXT          NOT NULL
+);
+\end{lstlisting}
+
+Et andet sted i databasen hvor der har været problemer, er i tabellerne 'Aktie' og 'Obligation'.
+
+\lstset{language=SQL, % fortæller hvilket sprog koden er skrevet i [dialekt].
+  basicstyle=\small, breaklines=true}
+
+\begin{lstlisting}
+CREATE TABLE aktiv(
+  aktivid AUTOINCREMENT PRIMARY KEY
+  kundeid int           FOREIGN KEY REFERENCES kunde
+);
+
+CREATE TABLE aktie(
+\end{lstlisting}
+  \vdots
+\begin{lstlisting}
+  antal      INT,
+  kurs       INT,
+  kursvaerdi INT,
+\end{lstlisting}
+  \vdots
+\begin{lstlisting}
+);
+
+CREATE TABLE obligation(
+\end{lstlisting}
+  \vdots
+\begin{lstlisting}
+  antal      INT,
+  kurs       INT,
+  kursvaerdi INT,
+\end{lstlisting}
+  \vdots
+\begin{lstlisting}
+);
+
+\end{lstlisting}
+
+I og med at $kurs*antal=kursværdi$ kan vi fjerne $kursværdi$ fra tabellerne og lade applikationen regne kursværdien ud når den pågældende form bliver genereret. Det er ikke hensigtsmæssigt at gemme en sum, som kan regnes ud fra de to andre tal, så længe at summen ikke skal bruges til noget senere. Vi har altså her fjernet redundant data, hvilket forhindrede tabellerne $aktie$ og $obligation$ i at opfylde 1. normalform.
+ 
+%Det vil sige at vi har redundant data i tabellerne, og dermed opfylder disse to tabeller ikke 1. normalform. Den simple løsning er at slette kursvaerdi fra tabellerne og lade applikationen udregne denne ud fra kurs og antal.
+
+Her stopper det for vores vedkommende. Man kunne gå videre med Boyes-Codd normalform og 4. og 5. normalform. Generelt kan man sige at man dekomponerer (nedbryder) sine tabeller når man normaliserer sin database. Problemet med 4. og 5. normalform er at de tager sig af problemer som kun opstår i meget komplekse databaser. Der kan være problemer ved at bruge Boyes-Codd normalform i kraft af det ikke altid er muligt at gå tilbage til et tidligere trin (3. normalform). Disse mulige problemer og begrundelser gør at vi stopper efter 3. normalform.
+
+\subsection{Start-opsætning af databasen}
+For at applikationen skal kunne virke skal der være noget data i databasen. Uden denne data vil algoritmerne til at gemme kunder, indtægter, aktiver og passiver ikke virke. I næste afsnit er 'x', 'y', 's', 't', 'o', 'p' og 'q' er naturlige tal og deres værdiger bliver automatisk sat i primærnøglen af databasen. Man skal selv huske at sætte de rigtige fremmednøgler. Tallet 'r' er lidt specielt da dette er et faktisk postnr og skal tastes ind manuelt. 
+
+\begin{center}
+\begin{table}[pbt]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|l|}{Session}\\ \hline
+\underline{SessionID} & Raadgiver & Dato & Note \\ \hline
+$x>0$ & Default & & \\ \hline
+$y>0, y \neq x$ & Empty   & & \\ \hline
+\end{tabular}
+\caption{Session Tabel\label{session tabel}}
+\end{table}
+
+\begin{table}[pbt]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|l|}{Kunde}\\ \hline
+\underline{KundeID} & Navn & Postnr & SessionID \\ \hline
+$s>0$           & Default & 800 & x \\ \hline
+$t>0, t \neq s$ & Empty   & 800 & y \\ \hline
+\end{tabular}
+\caption{Kunde tabel\label{kunde tabel}}
+\end{table}
+
+\begin{table}[pbt]
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Intaegt}\\ \hline
+\underline{IndtaegtID} & KundeID \\ \hline
+$o>0$ & s \\ \hline
+\end{tabular}
+\caption{Indtaegt tabel\label{indtaegt tabel}}
+\end{table}
+
+\begin{table}[pbt]
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Aktiv}\\ \hline
+\underline{AktivID} & KundeID \\ \hline
+$p>0$ & s \\ \hline
+\end{tabular}
+\caption{Aktiv tabel\label{aktiv tabel}}
+\end{table}
+
+\begin{table}[pbt]
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Passiv}\\ \hline
+\underline{PassivID} & KundeID \\ \hline
+$q>0$ & s \\ \hline
+\end{tabular}
+\caption{Passiv tabel\label{passiv tabel}}
+\end{table}
+
+\begin{table}[pbt]
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Postnr}\\ \hline
+\underline{Postnr} & By \\ \hline
+800 & Høje Taastrup\\ \hline
+\end{tabular}
+\caption{Postnr tabel\label{postbr}}
+\end{table}
+\end{center}
+
+\subsection{Sikkerhed}
+En af de ting vi ikke har kigget så meget på er transaktionsstyring. Transaktionsstyring er ikke helt uvæsenligt når vi kigger på vores gem algoritme, se afsnit \ref{gem-algoritme} på side \pageref{gem-algoritme}. Da databasen tilgåes fem gange pr. gennemløb er der mange ting som kan gå galt. Hvis der går noget galt et sted, så fejler hele algoritmen. I sådan et tilfælde hvor der er skrevet noget, men ikke det hele, til databasen, ville det være mest praktisk at lave et rollback. Det vil sige at skrive databasen tilbage til tilstanden før man begyndte at skrive. 
+Nedenfor ses et eksempel på hvordan dette kunne implementeres. Følgene kode er pseudokode.
+\lstset{language=[Sharp]C, % fortæller hvilket sprog koden er skrevet i.
+  basicstyle=\small, breaklines=true}
+\begin{lstlisting}
+IDbTransaction trans = null;
+try{
+  trans = connnection.BeginTransaction(IsolationLevel.Serializable);
+  Gem algoritmen
+  trans.Commit();
+}
+catch(exception e){
+  trans.Rollback();
+  Console.WriteLine(e.messege);
+}
+\end{lstlisting}

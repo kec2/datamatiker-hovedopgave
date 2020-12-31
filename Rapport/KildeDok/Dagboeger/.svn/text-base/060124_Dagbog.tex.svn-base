@@ -1,0 +1,13 @@
+\paragraph{I dag d. 24-01-06}
+
+\begin{itemize}
+\item Applikationsorienteret:\\
+Vi er blevet usikre på om en databaseret løsning overhovedet kan lade sig gøre, da den pågældende filserver findes ude på SDC.
+
+\item Vi har lavet en plan for ugen.
+\item Aftalt møde med Dion: Gennemgang af nuværende forløb med video for at fastholde.
+\item Der er blevet udarbejdet en tidslinie vi kan kigge på og overskue hvor langt vi er nået i forløbet.
+\item Der er blevet lavet en header i Latex til rapporten.
+\item Der er blevet udarbejdet en udviklingsmodel for projektforløbet.
+\item PopstGreSQL Test database installeret på vores PIII serveren i vores lokale.
+\end{itemize}

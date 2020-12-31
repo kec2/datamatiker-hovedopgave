@@ -1,0 +1,11 @@
+\paragraph{I dag d. 02-03-06}
+
+Kode:
+\begin{itemize}
+\item Rettet SaveKunde så den ikke peger på default-session, men på den rette session.
+\item Lavet polymorfi i Indtaegter, til at gemme indtaegter.
+\item Identificeret at der er et/flere problemer med load funktionerne (indtaegter)
+\item Funktionalitet til IndtaegtForhold (Note, navigeringsknapper, personliste)
+\item Fredagsbriefingsmenu er lavet og udsendt.
+\item Begyndt på TreeView til at vise indtaegtsforhold.
+\end{itemize}

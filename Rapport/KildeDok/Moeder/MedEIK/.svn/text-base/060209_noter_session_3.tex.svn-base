@@ -1,0 +1,254 @@
+Session 3							09.02.06
+
+Prototype 2, færdig udgave af indtastningsdelen
+
+NØGLE: Præcisere hvilke felter der skal være i indtastningsdelen i systemet.
+
+Christians noter
+
+Kundedata
+
+Samboende/samlever: Forskel i forhold til pension, men i praksis ingen forskel. Derfor fjernes denne person-status.
+Information om selvstændig virksomhed m.m. kan fint noteres/lægges i notesystemet.
+'Ændr person' omdøbes til 'ændr oplysning'
+'Fraskildt' omdøbes til 'Enlig'
+Information omkring børn kan fint noteres/lægges i notesytemet, fyldestgørende nok.
+Et felt til 'udlands-dansker' er ikke nødvendigt, denne info lægges i notesystemet.
+Der behøver ikke være plads til mere end 2 personer i person-listen.
+
+Indtægtsforhold
+
+Hvilke information i listboxen: 'Hans, hendes og en total' Altså en kolonne (lodret) til person 1, en kolonne til person 2 og en kollonne hvor der summeres. I rækkerne (vandret) listes indtægterne. 
+Kim kunne godt ønske sig 6 kolonner i alt, hvor fremskrivninger inddrages. Der bliver dog enighed om at holde sig til 'indtastnings-delen' i denne omgang.
+Både Kim og Dion er med på workflowet/arbejdsgangen.
+
+Indtægtsforhold, popup
+
+Fradrag fjernes da dette ikke er en skatte-beregning/selvangivelse.
+Kapital pension og Pensioner fjernes.
+'Vi tænker i skat, men skriver ikke noget om det her' så altid: før skat!
+Posternes grupperes efter type
+De 4 første grupperes efter typen 'løn' $\rightarrow$ A-Indkomst (kildeskat på alle 4)
+AktieUdbytte omdøbes til AktieIndkomst (kursgevinst og udbytte er skattemæssigt det samme)
+Renteindkomst kommer med
+'Skat' tilføjes, denne regner rådgiveren selv ud og taster ind.
+Der skelnes ikke mellem forskellige typer af pensioner 'Pensioner'
+
+1.Løn indkomst
+Firma
+Beløb
+
+2.Offentlig ydelse
+Ydelse (Der er kun ét beløb, der findes kun førtids- og folkepension og man kun få enten den ene eller den anden samtidigt)
+
+3.Bestyrelses honorar
+Firma
+Beløb
+
+4.Pensioner
+Selskab
+Beløb
+
+
+5.Overskud selvstændig virksomhed
+Selskab
+Beløb
+
+6.Rente indkomst
+Beløb (evt. flere indtastningsfelter så der kan regnes sammen, dog prioriteres et enkelt beløb højest for at holde det simpelt)
+
+7.Aktie indkomst
+Udbytte	(når virksomheden værdi-sætter sine aktier)
+Kursgevinst/tab	(når man sælger sin aktie)
+
+8.Rente udgift
+Prioritetsgæld
+Bank/anden gæld
+
+9.Skat
+2 former:
+Skat af løn og kapital indkomst (beskattes ens)
+Skat af aktieindkomst (beskattes lavere)
+
+Generelt: Indtægtsforhold omfatter også udgifter (renteudgifter og skat)
+
+Formueforhold
+
+Fælles for listboxes tilhørende aktiver og passiver: 3 kolonner (Person 1, person2 og total)
+
+Aktiver, popup
+
+Egenkapital er ikke et aktiv, denne fjernes.
+'Investeringsbevis' er det samme som 'aktie'.
+'Anparter' erstattes med 'selvstændig virksomhed'. (anpart beskattes som en selvst. Virk.)
+Poster:
+Fast ejendom
+Selvstændig virksomhed
+Aktie
+Obligation
+Bank indestående
+Andre akriver
+
+1.Fast ejendom
+Bolig
+Fritids bolig
+Ervervs ejendom
+Udlejnings ejendom
+
+2.Selvstændig virksomhed
+Selskab
+Personlig
+KS (Komadit selskab)
+Her skriver man beløbet ud for den type virksomhed det drejer sig om.
+
+3.Pensioner
+Der tastes ikke noget ind her, dette hentes fra 'Pensions forhold'
+
+
+
+4.Aktie
+Opdeleles som:
+Frie midler
+Pensionsmidler
+
+Her ønsker Kim en lidt anderledes opstilling, da han gerne vil kunne taste alle aktier ind i samme vindue. Dermed kommer der kolonner med Selskab, Kurs, Kursværdig og Antal, samt en markering af hvilken type det drejer sig om (frie midler vs. pension.)
+Aktierne kan dermed tastes ind nedaf.
+De frie midler inkluderes i aktiv-massen, dette gør pensionsmidlerne ikke.
+
+5.Andre aktiver
+Kunst/Antikviteter
+
+6.Bank indestående
+Beløb
+
+Passiver, popup
+
+Kreditlån(?) fjernes. (Realkredit og prioritetslån er det samme)
+Andre passiver tilføjes
+6 punkter
+Prioritetsgæld
+Familielån
+Kassekredit
+Bank gæld
+Andre passiver
+Latent skat
+
+1.Prioritetsgæld
+Långiver
+Type
+Rentesats
+Rest Løbetid
+Beløb
+
+I rente tastes sats og ikke beløb, altså årlig procent sats.
+Type (Kontantlån, obligationslån og flex lån)
+
+2.Familielån
+Magen til 1.
+
+3.Kassekredit
+Magen til 1 og 2.
+(Max træk etc. er ligegyldigt. Hvis kun 25.00 træk ud af 100.000 grænse, posted 75.000 som kontanter under aktiver)
+
+4.Bank gæld
+Magen til 1, 2 og 3.
+
+5.Andre passiver
+Andre former for lån (pantebrevs-gæld, gældsbrev(ikke familie-lån) m.m.)
+Magen til 1, 2, 3 og 4.
+
+6.Latent skat
+Opdeles i 4 typer:
+Pensioner
+Ejendomme
+Virksomhed
+Aktie
+
+Pensionsforhold
+
+Informationer i listbox:
+Der skelnes mellem dækninger:
+Reelle pensioner
+Dækning uarbejdsløs
+Dækning dødsfald.
+Type
+Tidsbegrænset
+
+og andre:
+Livrente
+Engangsbeløb
+
+Pensionsforhold, popup
+
+Kapital
+Rate
+Livrente
+Forsikring
+
+Indtastningsmulighedern er de samme for alle 4, der hvor de er forskellige undlader rådgiver at taste noget ind (prognoseværdi, beløb årligt).
+
+'Start dato' omdøbes til 'Start Udbetaling'.
+'Antal år' omdøbes til 'Udløbsdato'.
+'Beløb' omdøbes til Prognose værdi'
+
+
+
+Jes Noter
+
+Kundedata:
+
+Information om firmaforhold smides i notefeltet.
+Der skal tilføjes information om landeforhold. (i tilfældet det er en udlandsdansker)
+Knappen 'ændre person' bør hedde 'ændre oplysninger'
+
+Indtægtsforhold:
+
+Det handler her kun om indtægt og renteudgifter.
+I oversigtsfeltet, blev der foreslået at der kunne være 6 kolonner istedet for 3. Dette er dog mere i henhold til fremskrivningdelen af systemet, og er derfor ikke så relevant i denne sammenhæng.
+Alle fradrag fjernes fra indtægtsforhold.
+Det er vigtigt at fokusere på at alle poster er før skat. Grunden til dette er at man kan rykke rundt på forskellige parametre og poster inden skatten beregnes.
+De 4 første poster betegnes A-INDKOMST (lønindkomst, bestyrelseshonorar, offentlige ydelser, pension)
+De 2 næste poster betegnes som KAPITAL-INDKOMST (overskud af selvs. Virksomhed, renteindkomst)
+Aktieindkomst (gælder både salg af aktier og den årlige udbetalte præmie).
+Offentlige ydelser dækker over (folkepension og førtidspension). Dette skal ikek specificeres ud i systemet.
+Renteindtægt (her kan der være flere $\rightarrow$ det skal være muligt at lægge flere beløb sammen. En anden løsning er at brugeren selv indtaster summen af disse flere beløb)
+Renteudgift. Består af:
+prioritetsgæld (bolig gæld, som har første prioritet)
+bank/anden gæld (forbrugsgæld)
+Skat. Består af:
+Skat (kapitalindkomst og lønindkomst har samme skattesats)
+Aktieskat (heraf betales mindre skat end ved posten ovenover)
+'Skat' posten beregnes ud fra information fra Told\&Skats hjemmeside.
+
+
+Formueforhold.
+
+AKTIVER:
+Alle poster er grupperet efter likviditet. Dvs hvor hurtigt det kan omsættes til kontanter.
+Aktier (indeholder både Aps og A/S)
+Selvstændig virksomhed dækker over f.eks. Anpart i en vindmølle, osv. Der skal her være plads til flere indtastninger.
+'Pension'. Her hentes data fra indtastningen i Pensionsforhold.
+'Aktier':
+Indtastningen forgår i følgende skema på ÉN gang.
+
+SELSKAB	ANTAL	KURS	KURSVÆRDI	PENSION / FRIE MIDLER
+
+Pension/frie midler er et enten eller felt. Hvis det er en 'pensionsaktie' skal den være en del af den samlede 'pension' post. Formålet her er kun at få et overblik over fordelingen af aktieposter under pensionsforhold.  Det er kun 'frie midler' aktier, altså de aktier der er markeret som 'frie midler', der skal indgå under posten Formueforhold $\rightarrow$ aktiver $\rightarrow$ 'aktier'.
+PASSIVER:
+Kassekredit: 
+Værdien for den maksimale af banken tilladte overtræk (eks. 100.000) kan godt tastes ind som fuld værdi under kassekredit, men så skal forskellen mellem det nuværende reelle overtræk (eks. 25.000) og det maksimalt tilladte overtræk 100000-25000=75000 overføres til aktiver under kontanter.
+
+
+
+Pensionsforhold:
+Der findes 3 forskellige slags dækning:
+1.Pension
+2.Sygdom
+3.Død
+Der findes 4 forskellige typer pensioner:
+1.rate
+2.Livsvarig
+3.Livsrenter
+4.Kapital (engangs)
+Vores indtastningskema skal ligne det som Kim tidligere har udleveret.
+Prognoseværdi feltet angiver værdien af pensionen den dag du bliver pensioneret. Altså inklusiv forrentning og fremtidige årlige indbetalinger.

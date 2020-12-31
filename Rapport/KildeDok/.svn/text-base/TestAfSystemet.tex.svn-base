@@ -1,0 +1,516 @@
+
+En del af opgaven i forbindelse med udviklingen af et IT-system handler om at sikre kvaliteten af det udviklede produkt. Med kvalitet tænkes der på flere aspekter. Et aspekt er for eksempel 
+sikkerheden i systemet, hvilket ikke er uvæsentlig i vores projektsammenhæng. Et andet aspekt 
+er rigtigheden af de beregninger systemet laver og om de udviklede algoritmer rent faktisk 
+udfører den opgave de er konstueret til at udføre. Man kan ligeledes undersøge og teste om 
+systemet opfylder den ønskede grad af brugervenlighed og fleksibilitet, som dog er lidt blødere 
+emner der kan være svære at give et konkret svar på. Hvis man ikke undersøger disse, og andre, 
+kvalitetsmæssige aspekter under udviklingsfasen, risikerer man at systemet i sidste ende ikke 
+er brugbart. Denne kvalitetssikring opnås primært gennem forskellige former for tests af systemet, både af systemet som helhed og af de involverede delsystemer.
+
+For at kunne teste et specifikt område af et system, er det nødvendigt at planlægge testsituationen og gøre sig klart hvad det er man vil teste og hvordan man vil teste det. Det giver typisk mest mening at teste både indenfor og udenfor normalområdet af det data systemet kan repræsentere. Hvis en funktion for eksempel ikke skal kunne kan behandle negative heltal, er det hensigtsmæssigt at teste om den så kan håndtere positive heltal, men bestemt også at teste på hvad der sker hvis funktionen mod forventning skulle modtage et negativt heltal. Der skal, så vidt muligt, tages højde for uventede situationer og fejlbehandling af disse, for at undgå at systemet i yderste konsekvens fejler og/eller går ned.
+
+\section{Testmodeller}
+Der ligger meget teori og forberedelse til grund for at kunne udføre tests. Da testemnerne kan være ganske forskellige, er det nødvendigt at have forskellige testmodeller til at kunne dække de forskellige test forhold.
+
+Whitebox er en testmodel der bruges til at teste enkelte funktioner i systemet. Man dykker altså ned i systemets kode og udvælger typisk dele af denne som testmateriale. Kriterierne for om en funktion består en whitebox test ligger i de pre- og postconditions der er opstillet for funktionen. Whitebox tester altså om pre- og postconditions bliver overholdt.
+
+Blackbox ser, som navnet antyder, systemet som en lukket enhed der skal testes, uden kendskab til hvordan systemets interne dele fungerer. Denne testmodel giver input til et givent system og tager derefter det output systemet leverer, som resultat. Med 'et system' menes ikke nødvendigvis en hel og færdig applikation, men kan også være et delsystem.
+
+
+
+\section{Testsession\label{TestSession}}
+Test af applikationen handler ikke kun om test af koden, men også om test af andre områder som for eksempel brugergrænseflade. Efter at applikationen er kodet, bør den testes i dens tilsigtede miljø, for at se om den lever op til de krav vi har formuleret i samarbejde med EIK Bank. Kravene er målbare og består i, at den tid indtastningen af en typisk kundes stamdata tager, skal nedbringes ved hjælp af vores applikation. På nuværende tidspunkt og med nuværende arbejdsgang ligger indtastningstiden på ca. 30-60 min. for en gennemsnitskundes datasæt. Kravet er formuleret sådan, at dette skal forbedres efter 5-10 forsøgsrunder med applikationen, ned til i omegnen af 15-30 min, se tabel \ref{Kravliste} på side \pageref{Kravliste}.
+
+\subsection{Test af applikationen}
+For at teste vores applikation vil vi afholde en testsession. Der er dog nogen ting vi bør overveje og planlægge inden vi afholder denne. Vi bør overveje valg af testsubjekter, hvordan testen udføres og hvilken hypotese som skal testes af. Hypotesen bliver formuleret på tilsvarende måde som ovenfor. 
+\begin{itemize}
+\item Hypotese: Vores applikation kan hjælpe til at bringe indtastningstiden ned til i omegnen af 15-30 min.
+\end{itemize}
+%Hvordan ser den bedst mulige testsession ud?
+
+\subsubsection{Den ideelle test}
+Miljøet der testes i bør være så tæt på applikationens tilsigtede miljø som muligt. Dette inkluderer selvfølgelig brugerne, som bør have de samme færdigheder og vidensniveau, som de brugere, der skal arbejde med applikationen i fremtiden. I en ideel testsession vil vi have, de anbefalede, minimum 10 testpersoner, se kilde\cite{HCI}. Vi kalder dem fremover testbrugere, istedet for testpersoner, da det er applikationen og ikke selve personerne der skal testes.
+ 
+Vi vil foretage opmålinger af, hvor langt tid det tager at indtaste en kundes data, med rådgivernes nuværende arbejdsgang. Dette vil foregå i deres vante arbejdsomgivelser. En gruppe på minimum 10 testbrugere indtaster datasæt af gennemsnitsstørrelse på vores system. Efter 5 til 10 forsøg findes den bedste tid, og så har vi et mål for tiden det tager at indtaste datasættet. En sammenligning mellem tiderne for det gamle og vores nye system vil nu være muligt. Det samme vil en vurdering af effekten af det nye system. 
+
+
+\subsubsection{Vores testsession}
+Hvordan blev vores testsession så egentlig afholdt? På trods af at vi er så heldige at have tilgang til de selvsamme brugere, som rent faktisk kommer til at benytte systemet i fremtiden, så har vi kun 2 testbrugere og ikke de anbefalede minimum 10. Dette kommer vores testresultater naturligvis til at lide under rent statistisk set. På dagen for testsessionen viser det sig uheldigvis, at antallet af testbrugere er reduceret til én, på grund af sygdom.
+
+Vi afsatte en time til testsessionen, fordelt på ½ time til selve udførslen af testen og ½ time til uformel snak om sessionen. Vi fordelte roller mellem os. Der var en til at byde velkommen og efterfølgende være observatør, endnu en observatør og en facilitator. Vi benyttede et tidligere udleveret datasæt, som testbrugeren skulle køre igennem. Dette datasæt bestod af materiale fra en rigtig kundesag. Testbrugeren blev stillet to scenarier. Først skulle testbrugeren finde kundens stamdata i datasættet og indtaste dem, dernæst skulle indtægtsforholdene findes og indtastes. Herefter stillede vi en håndfuld improviserede tillægsspørgsmål, hvor testbrugeren blev bedt om at redigere og slette henholdsvis en indtægt og en person, for at komme rundt i de sidste dele af systemet. I samtalen med EIK Bank rådgiveren bagefter, ville vi fokusere på systemets brugervenlighed og effektivitet, og tage noter imens.
+
+
+\subsection{Resultat af testsessionen}
+Sessionen forløb fint og varede præcist en time som planlagt. Tidsmæssigt tog det testpersonen 11 minutter og 24 sekunder at indtaste henholdsvis kundedata, indtægtsforhold og det tog yderligere 3 minutter og 31 sekunder komme igennem rediger og slet funktionerne. 
+
+Navigeringen rundt mellem de forskellige forme gik faktisk ret godt. Der var dog lidt forvirring omkring 'tilføj' knappen. Under oprettelsen af en kunde gik det fint nok med at trykke på 'tilføj' knappen, men da der skulle oprettes en indtægt, gik der længere tid inden testbrugeren fandt ud af, at man skulle markere en kunde, inden man kunne trykke på 'tilføj' knappen. Herefter var der skabt forståelse for, at en kunde skulle markeres før der kunne indtastes data. 'Rediger' og 'slet' indtægter virkede ikke helt intuitivt for testbrugeren og krævede lidt hjælp at komme igennem. Det skal så nævnes at det var første gang testbrugeren så og anvendte systemet, udover at have set prototyperne. Testbrugeren fik ikke tid til først at lære systemet at kende. Sessionen begyndte med det samme.
+
+Der var også lidt forvirring i begyndelsen omkring, at en kunde hører sammen med en session. Altså at der ikke kan eksistere en kunde uden at der eksisterer en session. Dette kunne der sandsynligvis rettes op på ved at kalde en 'session' for en 'sag' i stedet for, har vi erfaret efterfølgende. Bortset fra ovennævnte problemer navigerede testbrugeren ret godt rundt i programmet.
+
+Under samtalen bagefter kom vi lidt ind på de tidsmæssige aspekter i systemet, brugergrænsefladen og systemet generelt. Vi fandt frem til en hel del forslag til hvordan applikationen kan forbedres. Både nogle vi var klar over og nogle der var nye. Her er noget af det vi fandt frem til:
+
+Kundedata
+\begin{itemize}
+\item På nuværende tidspunkt stiller programmet krav om at der under oprettelsen af en kunde skal indtastes følgende stamdata: 'CPR nummer', 'postnummer', 'mobilnummer' og 'telefonnummer', mens 'Navn', 'adresse' og 'email' kan udelades. For fleksibilitetens skyld vil det være bedre hvis det kun var 'Navn' og 'CPR nummer' der var nødvendige at indtaste.
+\item I den situation hvor der skal tilføjes en person nr. 2, burde systemet være skruet sådan sammen, at efter der er blevet trykket på tilføj, skulle alt information i textfelterne der er indtastet bevares. Kun 'CPR nummer' og 'Navn' skal ryddes.
+\end{itemize}
+
+
+Indtægtsforhold
+\begin{itemize}
+\item Der ønskes helt overordnet en opdeling af ansvaret mellem popup´en og indtægtsformen, på en sådan måde, at indtægtsformen giver overblikket og popup´en giver detaljerne.
+\item For testbrugeren virkede det mere logisk at have knapperne til 'tilføj', 'slet' og 'rediger' på popup-formen.
+\item Sum på popup-formen. Således at der er en samlet sum for den enkelte kategori, f.eks. aktier.
+\item Totalsum på hovedformen. Totalsum for samtlige kategorier på formen, altså alle indtægter.
+\item Når der tilføjes en ny indtægt skal den ikke indsættes nederst i treeview'et på indtægtsformen, men følge samme rækkefølge af indtægter som på popup'en. Treeview bør altså være sorteret.
+\item På popup'en ønskes det, at alle posteringerne under den enkelte kategori skal listes på én gang og at de skal listes i rækker og kolonner.
+\item Kundens navn på popup skærmen vil måske være en god ide.
+\end{itemize}
+
+
+Generelt
+\begin{itemize}
+\item Fortrydknap: Testbrugeren efterspurgte en 'fortrydknap', som han kendte fra andre programmer. Han synes dog ikke problemet er så stort, da der ikke er nogen reel risiko for at miste data. Al informationen der skal indtastes, ligger alligevel i kundens datasæt og kan indtastes igen.
+\item En advarsel når brugeren vælger 'slet', som beder om en bekræftigelse af sletningen.
+\item Tusindtalsseperatorer for at tydeliggøre beløbenes størrelser.
+\end{itemize}
+
+
+Vi fik også input til vores grafiske brugergrænseflade. Testbrugeren tillagde ikke ikonerne på 'tilføj', 'slet' og 'rediger' knapperne nogen betydning. Plustegnet på 'tilføj' knappen og krydset på 'slet' knappen gav ikke nogen associationer i retning af at slette og tilføje. Blyanten på 'rediger' knappen gav heller ikke associationer i retning af at kunne redigere. Til gengæld kom testbrugeren med et forslag til et nyt ikon til redigerknappen, nemlig et viskelæder. Ideen om at viskelæderet giver bedre associationer end blyanten, må vi tilslutte os. Til gengæld var der bedre forståelse for farverne grøn og rød, som symboliserede ``go"' og ``stop"'. 
+
+For at vende tilbage til vores hypotese, om at vores system kan nedbringe indtastningstiden fra 30-60 minutter til 15-30 minutter, så mente testbrugeren direkte adspurgt, at man efter 15 minutters indøvelse vil have vænnet sig til det nye system. Vi fik ikke svar på hvorvidt testbrugeren troede at indtastningstiden, ved brug af vores system, vil komme ned på 15-30 minutter, men han gav udtryk for at systemet vil give en forbedring. Vi spurgte ind til hvad grunden til denne forbedring i forhold til den nuværende arbejdsgang kunne være. Testbrugeren var af den opfattelse at det nye system kommer til at agere som en slags huskeliste. Med den nuværende arbejdsgang bruges et eksisterende excelark, som en slags støtte eller skabelon, så en del indtastningsfelter kan genbruges og ny data indtastes. Idet to kunder aldrig er ens og at der kun gemmes relevant information i Excelarket, så opstår problemet med at rådgiveren risikerer at glemmer at indtaste nogle punkter. Vores system sikrer, at der ikke er nogen områder der glemmes. Muligheden for at springe rundt mellem de forskellige områder er bygget ind i applikationen. Huskelistefunktionaliteten, i mangel på et bedre ord, hæmmer altså ikke fleksibiliteten. Selv om det kan lyde som om hypotesen holder, skal man lige huske på de ting som kan så tvivl om rigtigheden af de fundne påstande. 
+
+Vi har kun haft én testbruger af systemet, og dette er ikke nok til at fastslå noget med sikkerhed. Det kræver flere testbrugere før det statistiske materiale er godt nok til at kunne konkludere noget. Testbrugeren har heller ikke haft meget tid til at lære systemet at kende, så dataind\-tastningen vil selvfølgelig kunne foregå en del hurtigere end under denne session. At sys\-te\-mets pensions- og formuedele heller ikke er implementerede, er også med til at give det fundne resultat en vis usikkerhed. Vi kan ikke teste i rådgiverens daglige miljø, og dermed tage højde for diverse forstyrrende elementer. Vores testsession fandt dog sted i ret lignende rammer, så vi vurderer det til at være relativt ubetydeligt. 
+
+Disse faktorer gør at vi ikke er i stand til at konkludere noget håndfast, men at vi snarere må kalde det en indikation af, at vores system er i stand til at opfylde den stillede hypotese.
+
+
+%
+%Ulemper: ikke færdigt system.
+
+%Tidsmæssigt / hypotese.
+
+
+%kronologisk
+%Konklusion
+%	navigeringen - intuitiv opbygning? 
+%		(rediger / slet) ??
+% Ønsker om forbedringer på flg punkter: masser af nye guldkorn, nye og gamle.
+%	GUI: knapper
+%	Tidsmæssig sammenligning mellem nyt og gammelt system. Var der hold i hypotesen? tager 15 min %ca. Hvorfor: huskeliste effekten, 
+
+
+
+	
+
+
+%Her kommer så en opsummeret liste over vigtige punkter...
+%Hent ind fra notedokumentet, de gode punkter / guldkornene. Veludført.
+
+%Hvad lavede vi til sessionen?
+%testspørgsmål / scenarier.
+%Gennemkørsel af programmet.
+%Tidl. set programfladerne = næsten skolet i programmet.
+%Uformel snak.
+%Tidsnød.
+
+
+%I en ideel testsession vil vi have de anbefalede minimum 10 testpersoner, men dette kan i vores situation desværre ikke kan lade sig gøre, som beskrevet ovenfor. Man vil foretage opmålinger over hvor langt tid indtastninger tager EIK banks rådgivere med nuværende arbejdsgang og ved brug af applikationen. Vi kunne så sammenligne disse data til at finde ud af hvilken tidsmæssig forbedring den nye applikation giver i forhold til den gamle arbejdsgang. Yderligere skulle dette så fortsætte med adskillige runder hvor alle testbrugere indtaster flere kunders datasæt, både med den gamle arbejdsgang og med den nye applikation. Samtidig foretages der stadigvæk opmålinger af tidsforbruget for hver kundes datasæt. På et tidspunkt lærer testbrugerne for alvor at bruge systemet og kende den gamle arbejdsgang. De tidsmæssige forbedringer fra forrige runde vil så blive negligerbare. Den indsamlede information, specielt de sidste målinger, kan give et godt billede af de tidsmæssige forbedringer, som applikationen kan bringe. I den ideele testsituation vil man udføre testen i dens intenderede miljø, altså i dette tilfælde i det kontormiljø som EIK banks rådgivere til dagligt færdes i. På denne måde ville alle uforudsete faktorer komme til at spille ind og influere på testresultaterne på den mest realistiske måde. I den ideele testsession kan testbrugere ikke se hinanden under udførelsen af testen. Dette skyldes at det nogen gange kan være svært for testbrugere at slippe tanken om at det er applikationen og ikke dem der testes. Herved kan der opstå et konkurrencepræg mellem deltagerne, som vil resultere i misvisende resultater. 
+%Der er flere ting der gør, at vi ikke kan opnå den ideele testsituation. Vi har ikke mulighed for at bruge det antal testdeltagere som anbefales, vi er ikke nok personer i gruppen til, at vi kan være en facilitator og en observatør pr. testdeltager, hvis flere testbrugere skal foretages tests samtidig og den primære årsag er, at vi slet ikke har den tid det ville kræve at udføre en sådan test. 
+%Vi skulle have to EIK Bank rådgivere til test, men bliver kun en, på grund af uheldige omstændigheder under udførelsen af sport. Selv om dette simplificerer testen har vi stadigvæk ikke mulighed for at køre flere runder igennem med indtastning af flere dataset indtil EIK Bank rådgiveren har lært applikationen at kende så godt at flere runder ikke forbedrer indtastningstiden. Rådgiveren har dog set flere udkast til applikationen og bør godt kunne manøvrere rundt i applikationen. 
+%Vi har afsat en time til afholdelse af testsessionen. Hvordan kan tiden bruges bedst muligt? Vi har fravalgt indtastning af data på den gamle metode og valgt kun at indtaste et datasæt i applikationen. Vi indsamler ikke data nok til at give et reelt overblik over forbedringen af effektiviteten. Vi har derfor valgt at bruge den sidste halve time af testsessionen på at interviewe og diskutere EIK Bank rådgiverens indtryk. 
+
+
+%Problemer med vores test session
+%Kun en del af systemet er implementeret.
+%Vi har ikke et fuldt antal testpersoner.
+%Kan ikke teste i rådgivernes daglige miljø, og dermed få alle uforudsete faktorer med.
+%Indtastningsdata, vi har ikke nok. Udleveret, selv udarbejde?
+
+%Vi har ikke tid nok.
+
+%GAMMELT:
+%Miljøet der testes i bør være så tæt på applikationens tilsigtede miljø som muligt. Dette inkluderer selvfølgelig brugerne, som bør have de samme færdigheder og vidensniveau, som de brugere, der skal arbejde med applikationen i fremtiden. Vi er så heldige at have tilgang til de selvsamme brugere, som rent faktisk kommer til at benytte systemet i fremtiden. . Til gengæld har vi kun 2 testbrugere, hvor de anbefalede minimum 10 selvfølgelig vil give et mere præcist resultat, se kilde\cite{HCI}. Dette kommer vores testresultater naturligvis til at lide under rent statistisk set. Det vi forsøger at teste er om vores applikation kan leve op til krav nr. 28 i kravslisten, se tabel \ref{Kravliste} på side \pageref{Kravliste}. Kravet er formuleret sådan at efter 5-10 forsøg skal indtastningstiden på en gennemsnitskunde være på 15-30 min. På nuværende tidspunkt ligger indtastningstiden på ca 30-60 min. Vores hypotese bliver formuleret tilsvarende. 
+
+%Selve vores test (ideelt set):
+%\begin{enumerate}
+%\item Vi udvikler et fiktivt sæt testdata som skal indtastes(evt. 5)
+%\item De 2 brugere indtaster skiftevis på den gammeldags metode og gennem vores applikation.
+%\item Pkt. 2 foretages 5 gange.
+%\item Så kan der laves statistik på den eventuelle forbedring.
+%\item herefter kommer så den vigtige feedback, hvor vi kan få brugeres input. 
+%\end {enumerate}
+%Den ideele test session:
+
+%på grund af tidsnød...
+
+%Hvilke muligheder har vi og hvorfor:
+%  -tid.
+%  3 muligheder - beskriv dem.
+
+%Vores valg af test:
+
+%Indhold af test session / planlægning af.
+%Mulighed nummer 2 + den meget vigtige feedback.
+
+
+
+
+%\section{Beskrivelse af test}
+%Vores kode er testet, men desvære er langt fra alle test blevet dokumenteret. I det følgene afsnit vil vi beskrive hvordan vi under udviklingsarbejdet har test systemet. Generelt burde vi have lavet test samtidigt med udviklingen af applikationen. Ved at lave en eller flere test metoder/funktioner som kan teste en klasses variabe og/eller metoder har vi en fast defineret måde at test på. Når vi så senere ændre en metoder i en klasse kan vi uden ekstre arbejde teste den nye implementering og se om den stadig opfylde kravene. Det er vigtigt at test både lovlig og ulovlige værdiger, sam at test i grænseområdet. Dette er dem nemmeste måde at teste på, men af årsager der af os ikke er kendte, har vi ikke fået dette gjort. 
+%Ved at vente med at test til at applikationen er færdig, står man over for et stykke arbejde som er uoverkommeligt. Dels fordi at der på dette tidspunkt er utallige kombinationsmuligheder af klasser og metoder imellem og dels fordi at ændringer i koden på dette tidspunkt kan få hele arkitektur korthustet til at vælte.
+
+%Vi har udelukkende brugt 'black box' test til at teste systemet. Vi henviser til bilag for at se klassediagrammet, når der i det følgene omtales forskellige klasser. 
+
+%Når det kommer til entitets klasser, så som forskelige indtægter, det være sig 'aktieIndkomst', 'loenIndkomst' mv, har vi via klassernes get og set funktioner tjekket at de værdier vi tillægger de lokale variable også er dem vi for ud igen. Med at tjekke mener vi at vi ved at se på skærmen har tjekket om det er de samme bogstaver og tal som bliver sat ind som der blev hentet ud. En anden ting man kunne gøre var at få programmet til at undersøger om to tal, tekster eller sandhedsudtryk er lig med hinanden. En anden ting vi har gjort for at kunne tjekke hvilke værdier et objekt indholder er at lave print funktioner til objekterne.
+
+%Når en klasses get og set metoder er teste kan vi gå vidre de mere avencerede metoder, så som Equels(Object obj). I denne funktion har vi fastlagt hvornår to objekter af samme type er ens. Denne metoder returnere enten sandt eller falst, så den kan ikke blive nemmere. Der ved får vi testet en klasses get metoder og vi får computeren til at sammen tal, tekststrenge og sandhedudtryk. Derefter går vi vidre til at teste funktioner som går i databasen og dermed også gør brug af en anden klasse. Testen af tilgangen til databasen kan ses i afsnit \ref{Test af database tilgang} på side \pageref{Test af database tilgang}. Nu kan vi så begyndde at sammesætte applikationen, nede fra og op, og teste at det virker. Det er generelt også denne metode vi bruger når hele applikationen bliver testet. Dermed ikke sagt at det ikke kan komme nye funktioner til i klasserne. Men igen så skal disse testes inden at brugt andre steder i applikationen.
+
+\section{Test af databasetilgang\label{Test af database tilgang}}
+Denne test har 3 formål.
+\begin{enumerate}
+\item Vi skal skabe forbindelse til databasen.
+\item Vi skal teste om vi kan skrive til databasen.
+\item Vi skal teste om vi kan læse fra databasen.
+\end{enumerate}
+Til dette formål skal vi bruge en database, og den ser ud som på følgende figur, se \ref{TestDB} på side \pageref{TestDB}. Til at starte med er databasen tom.
+\begin{table}
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \underline{UserID} (PK) & Name & Address & Telephone & Email \\ \hline
+  autoincrement           & text & text    & int       & text  \\
+  \hline
+  \end{tabular}
+\caption{Test database\label{TestDB}}
+\end{table}
+
+\lstset{language=[Sharp]C, % fortæller hvilket sprog koden er skrevet i [dialekt].
+  basicstyle=\small, breaklines=true}
+\begin{lstlisting}
+class DBAccess
+{
+   private OleDbConnection myConnection;
+   private OleDbDataAdapter myDataAdapter;
+   private OleDbCommand myCommand;
+
+   public DBAccess()
+   {
+       Console.WriteLine("Skriv stien til access databasen");
+       String stiTilDB = Console.ReadLine();
+       string ConnString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + stiTilDB;
+       myConnection = new OleDbConnection(ConnString);
+   }
+
+   public DataSet ExecuteQuery(string sql)
+   {
+       DataSet myDataSet;
+       myDataSet = new DataSet();
+
+       try
+       {
+           myConnection.Open();
+           myCommand = myConnection.CreateCommand();
+           myCommand.CommandText = sql;
+           myDataAdapter = new OleDbDataAdapter(myCommand);
+           myDataAdapter.Fill(myDataSet, "result");
+       }
+       catch (Exception e)
+       {
+           myDataSet.DataSetName = e.Message;
+           Console.WriteLine(e.Message);
+           return myDataSet;
+       }
+       finally
+       {
+           myConnection.Close();
+       }
+       myDataSet.DataSetName = "Result";
+       return myDataSet;
+   }
+
+   public string ExecuteNonQuery(string sql)
+   {
+      try
+      {
+          myConnection.Open();
+          myCommand = myConnection.CreateCommand();
+          myCommand.CommandText = sql;
+          myCommand.ExecuteNonQuery();
+      }
+      catch (Exception e)
+      {
+          return e.Message;
+      }
+      finally
+      {
+          myConnection.Close();
+      }
+      return "ok";
+   }
+}
+
+static void Main(string[] args)
+{
+  //oprette et DBAccess objekt.
+  DBAccess dba = new DBAccess();
+
+  //Indsætter en 'user' i databasen.
+  String sql = "insert into Users (Name, Address, Telephone, Email) values ('Klaus Christiansen', 'Høffdingsvej 31', 23413783, 'kec2@email.dk')";
+  //udskriver om det gik godt eller skidt.
+  Console.WriteLine("Data blev indsat i db :" + dba.ExecuteNonQuery(sql));
+  Console.ReadKey();
+
+  sql = "select * from Users";
+  //Vælger alle 'users' i databasen.
+  DataSet ds = dba.ExecuteQuery(sql);
+  //Skriver alle 'users' ud en for en.
+  try{
+    foreach (System.Data.DataRow r in ds.Tables["result"].Rows)
+    {
+       Console.WriteLine("User ID   : " + r["UserId"].ToString());
+       Console.WriteLine("Name      : " + r["Name"].ToString());
+       Console.WriteLine("Address   : " + r["Address"].ToString());
+       Console.WriteLine("Telephone : " + r["Telephone"].ToString());
+       Console.WriteLine("Email     : " + r["Email"].ToString());
+       Console.WriteLine();
+       Console.ReadKey();
+    }
+  }
+  catch(NullReferenceException nre){
+    Console.WriteLine("Der er sket en fejl : "+nre.messege);
+  }
+}
+\end{lstlisting}
+Til at lave denne test vil vi gøre brug af en blackbox test. Vi vil tage udgangspunkt i at der findes en database som før beskrevet, se tabel \ref{TestDB} på side \pageref{TestDB}. Skulle denne database ikke være tilgængelig, vil testen fejle. Dette vil resultere i at følgende bliver udskrevet til skærmen:
+\begin{verbatim}
+Data blev indsat i db : 'stien' kan ikke findes.
+\end{verbatim}
+Hvor stien er den absolutte man har skrevet. Skulle vi derimod forsøge af udskrive data som ikke findes i databasen vil programmet smide en exception som vil bliver grebet, og fejlen vil blive udskrevet.
+
+\subsection{Selve testen}
+Det første der sker er at vi bliver bedt om at indtaste den absolutte sti til databasen. I vi vores tilfælde skriver vi
+'C:/Documents and Settings/ideas/Skrivebord/HovedOpgave/Test/Access testdb/testdb.mdb'.\\
+SQL streng 1 = "insert into Users (Name, Address, Telephone, Email) values ('Klaus Christiansen', 'Høffdingsvej 31', 23413783, 'kec2@email.dk')"\\
+SQL streng 2 = "select * from Users"\\
+Som resultat giver denne test følgende output: Se tabel \ref{TestDBResultat} på side \pageref{TestDBResultat}.\\
+
+\begin{table}[htbp]
+\begin{tabular}{|p{1.0cm}|p{4.5cm}|p{4.5cm}|p{1.0cm}|}
+\hline
+Indput       & Forventet output           & Faktisk output               & Kon\-klu\-sion \\ \hline
+SQL streng 1 & Data blev indsat i db : ok & Data blev indsat i db : ok   & $\surd$ \\ \hline
+SQL streng 2 & User ID : $>$ 0             & User ID : 56                 & $\surd$ \\ 
+             & Name : Klaus Christiasen   & Name : Klaus Christiasen     & $\surd$ \\ 
+             & Address : Høffdingsvej 31  & Address : Høffdingsvej 31    & $\surd$ \\ 
+             & Telephone : 23413783       & Telephone : 2341783          & $\surd$ \\ 
+             & Email : kec2@email.dk      & Email : kec2@email.dk        & $\surd$ \\ \hline
+\end{tabular}
+\caption{Resultat af databasetest.\label{TestDBResultat}}
+\end{table}
+
+\section{Test af gem funktioner\label{Test af gem funktioner}}
+Vi skal vise at gem-algoritmen virker. Algoritmen kan ses i afsnit \ref{gem-algoritme} på side \pageref{gem-algoritme}. 
+Nedenfor ses et udsnit af 3 klasser, hvor kun de interessante metoder er med. Vi vil vise at algoritmen virker når der oprettes flere aktiver i databasen. Vi har ovenover set at tilgangen til databasen virker. Den opmærksomme læser vil se at der er forskel på DBAccess ovenover og de kald der bliver lavet nedenunder til selv samme DBAccess klasse. Dette skyldes at ovenstående test er lavet før vi implementerede design patternet 'Singleton'. Der står mere om dette design pattern i afsnit \ref{singleton} på side \pageref{singleton}.
+
+\subsection{Forklaring af kode}
+Det første af de 3 klasseudsnit der ses nedenfor, er klassen 'Aktiv'. Denne klasse er en superklasse, hvilket vil sige at andre klasser kan arve fra den. Den har blandt andet metoden \textit{GemAktiv() }som tager sig at de indledende øvelser når et aktiv skal gemmes i databasen. Det næste udsnit er af klassen 'Aktie' som er en subklasse, da den arver fra 'Aktiv'. Den har også en metode der hedder \textit{GemAktiv()} og den tager sig af at gemme det som er specifikt for en 'Aktie'. Det sidste er et udsnit af klassen 'AktivKontainer'. Udsnittet viser at når en kontainer af typen 'Aktiv' instantieres, så gemmes 6 forskellige 'Aktiver'.
+
+For at testen skal virke er der nogle ting vi må antage. For det første skal der være to tupler i tabellen 'Kunde'.\\
+
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Kunde}\\ \hline
+\underline{KundeID} & Navn \\ \hline
+13 & Default \\ \hline
+2  & TueT \\ \hline
+\end{tabular}
+\\
+
+Vi har desuden brug for at antage følgende om tabellen 'Aktiv'.\\
+
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Aktiv}\\ \hline
+\underline{AktivID} & KundeID \\ \hline
+346 & 13 \\ \hline
+\end{tabular}
+\\
+
+Til sidst antager vi at tabellerne Aktie, BankIndestaaende, FastEjendom med flere, er tomme. Når der bliver indsat en tupel i en af disse tabeller, så starter deres ID hver især fra 1, og hvergang der indsættes en ny tupel så bliver der lagt en til. Dette betyder at tabellerne sagtens kan have samme ID.
+\\
+
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Aktie}\\ \hline
+\underline{AktieID} & AktivID\\ \hline
+\end{tabular}
+\\
+
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{BankIndestaaende}\\ \hline
+\underline{BankIndeStaaendeID} & AktivID\\ \hline
+\end{tabular}
+\\
+
+Det skal for en god ordens skyld nævnes at det kun er et udsnit af kolonnerne der er vist i tabellerne.
+
+Første kald i \textit{Aktiv.GemAktiv() }giver os $kundeid=13$ og $AktivID=346$. Så opretter vi en tupel i tabellen 'Aktiv' som også peger på 'Kunde' med $KundeID=13$. Denne nye tupel får nu $kundeid=13$ og $AktivID=347$. Så opdatere vi 'Aktiv' tabellen og sætter $KundeID=2$ som er ID'et på vores kunde, hvor $AktivID=346$.
+Nu tager \textit{Aktie.GemAktiv() }over og opretter en tupel i 'Aktie' som peger på vores $AktivID=346$. Til sidst henter vi det nye \textit{AktieID} som nu er 1. Aktien får $ID'et=1$. 
+
+Da denne serie kald startede var det \textit{AktivID}, vi kunne bruge, 346. Nu når der er indsat en 'Aktie' er \textit{AktivID} et blevet $346+1=347$. Så hver gang denne algoritme kører, bliver \textit{AktivID} én større og på den måde kan vi blive ved med at indsætte forskellige 'Aktiver' i databasen.
+
+\lstset{language=[Sharp]C, % fortæller hvilket sprog koden er skrevet i [dialekt].
+  basicstyle=\small, breaklines=true}
+\begin{lstlisting}        
+public abstract class Aktiv
+{
+  public virtual void GemAktiv()
+  {
+    // Henter tuplen, i tabellen aktiv, med det id som peger på kunden med navnet 'Default'
+    string sql = "SELECT aktivid, kunde.kundeid FROM aktiv inner join kunde on aktiv.kundeid = kunde.kundeid WHERE navn='Default'";
+    DataSet myDataSet = DBAccess.getDBInstance().ExecuteQuery(sql);
+    int emptyAktivID = 0;
+    int defaultKundeID = 0;
+    try
+    {
+      emptyAktivID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][0].ToString());
+      defaultKundeID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][1].ToString());
+    }
+    catch (NullReferenceException nre)
+    {
+      Console.WriteLine("Aktiv.GemAktiv 1 : " + nre.Message);
+    }
+    //Indsætter en ny tupel der nu får det højeste id (id+1)
+    sql = "INSERT INTO aktiv (kundeid) VALUES (" + defaultKundeID + ")";
+    DBAccess.getDBInstance().ExecuteNonQuery(sql);
+
+    //Opdaterer den hentede tupels kundeid til den pågældende kunde
+    sql = "UPDATE aktiv SET kundeid=" + KundeID + " WHERE aktivid=" + emptyAktivID;
+    DBAccess.getDBInstance().ExecuteNonQuery(sql);
+    this.AktivID = emptyAktivID;
+  }
+}
+
+public class Aktie : Aktiv
+{
+  public override void GemAktiv()
+  {
+    //Opretter plads i tabellen Aktiv
+    base.GemAktiv();
+    //Indsætter en aktie i tabellen aktie, med relation til det ovenfor oprettede aktiv
+    string sql = "INSERT INTO aktie (aktivid, selskab, antal, kurs, friemidler, pensionsmidler) values (" + base.AktivID + ", '" + selskab + "', " + antal + ", " + kurs + ", " + frieMidler + ", " + pensionsMidler + ")";
+    DBAccess.getDBInstance().ExecuteNonQuery(sql);
+
+    //Henter det pågældende AktivID
+    sql = "SELECT aktieid FROM aktie WHERE aktivid=" + base.AktivID;
+    DataSet myDataSet = DBAccess.getDBInstance().ExecuteQuery(sql);
+
+    try
+    {
+      aktieID = Convert.ToInt32(myDataSet.Tables["Result"].Rows[0][0].ToString());
+    }
+    catch (NullReferenceException nre)
+    {
+      Console.WriteLine("Aktie.GemAktie : " + nre.Message);
+    }
+  }
+}
+
+public class AktivKontainer
+{
+  public AktivKontainer(int kundeID_)
+  {
+    kundeID = kundeID_;
+    aktiver = new List<Aktiv>();
+
+    Aktie a = new Aktie(0,2,0,"TestAktie",100,100,false,false);
+    a.GemAktiv();
+    AndreAktiver aa = new AndreAktiver(0, 2, 0, 100);
+    aa.GemAktiv();
+    Bankindestaaende b = new Bankindestaaende(0, 2, 0, 100);
+    b.GemAktiv();
+    FastEjendom f = new FastEjendom(0, 2, 0, 100, 100, 100, 100);
+    f.GemAktiv();
+    Obligation o = new Obligation(0, 2, 0, "TestObligation", 100, 100, false, false);
+    o.GemAktiv();
+    SelvstaendigVirksomhed s = new SelvstaendigVirksomhed(0, 2, 0, 100, 100, 100);
+    s.GemAktiv();
+  }
+}
+\end{lstlisting}
+
+Når testen er kørt igennem har tabellerne følgende data.\\
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Kunde}\\ \hline
+\underline{KundeID} & Navn \\ \hline
+13 & Default \\ \hline
+2  & TueT \\ \hline
+\end{tabular}
+\\
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Aktiv}\\ \hline
+\underline{AktivID} & KundeID \\ \hline
+346 & 2 \\ \hline
+347 & 2 \\ \hline
+348 & 2 \\ \hline
+349 & 2 \\ \hline
+350 & 2 \\ \hline
+351 & 2 \\ \hline
+352 & 2 \\ \hline
+353 & 2 \\ \hline
+354 & 2 \\ \hline
+355 & 2 \\ \hline
+356 & 2 \\ \hline
+357 & 2 \\ \hline
+358 & 13 \\ \hline
+\end{tabular}
+\\
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Aktie}\\ \hline
+\underline{AktieID} & AktivID\\ \hline
+1 & 346\\ \hline
+2 & 352\\ \hline
+\end{tabular}
+\\
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{BankIndestaaende}\\ \hline
+\underline{BankIndeStaaendeID} & AktivID\\ \hline
+1 & 348 \\ \hline
+2 & 354 \\ \hline
+\end{tabular}
+
+Nedenfor ses de SQL-kald der ligger til grund for tabellerne.
+
+\lstset{language=SQL, % fortæller hvilket sprog koden er skrevet i [dialekt].
+  basicstyle=\small, breaklines=true}
+\begin{lstlisting}
+SELECT aktivid, kunde.kundeid FROM aktiv inner join kunde on aktiv.kundeid = kunde.kundeid WHERE navn='Default'
+INSERT INTO aktiv (kundeid) VALUES (13)
+UPDATE aktiv SET kundeid=2 WHERE aktivid=346
+INSERT INTO aktie (aktivid, selskab, antal, kurs, friemidler, pensionsmidler) values (346, 'TestAktie', 100, 100, False, False)
+SELECT aktieid FROM aktie WHERE aktivid=346
+
+SELECT aktivid, kunde.kundeid FROM aktiv inner join kunde on aktiv.kundeid = kunde.kundeid WHERE navn='Default'
+INSERT INTO aktiv (kundeid) VALUES (13)
+UPDATE aktiv SET kundeid=2 WHERE aktivid=348
+INSERT INTO bankindestaaende (aktivid, beloeb) values (348, 100)
+SELECT bankindestaaendeid FROM bankindestaaende WHERE aktivid=348
+
+SELECT aktivid, kunde.kundeid FROM aktiv inner join kunde on aktiv.kundeid = kunde.kundeid WHERE navn='Default'
+INSERT INTO aktiv (kundeid) VALUES (13)
+UPDATE aktiv SET kundeid=2 WHERE aktivid=352
+INSERT INTO aktie (aktivid, selskab, antal, kurs, friemidler, pensionsmidler) values (352, 'TestAktie', 100, 100, False, False)
+SELECT aktieid FROM aktie WHERE aktivid=352
+
+SELECT aktivid, kunde.kundeid FROM aktiv inner join kunde on aktiv.kundeid = kunde.kundeid WHERE navn='Default'
+INSERT INTO aktiv (kundeid) VALUES (13)
+UPDATE aktiv SET kundeid=2 WHERE aktivid=354
+INSERT INTO bankindestaaende (aktivid, beloeb) values (354, 100)
+SELECT bankindestaaendeid FROM bankindestaaende WHERE aktivid=354
+\end{lstlisting}

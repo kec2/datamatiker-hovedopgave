@@ -1,0 +1,16 @@
+\paragraph{Møde med Klaus Pommern og Johann, Bekymringer omkring SDC, d. 31-01-06}
+
+\textbf{Vi fandt ud af følgende på mødet.}
+Indtastning / justering skal være mulig hos kunden. Dette pga af at der ofte vil være rettelser og tilføjelser ude hos kunden. Det vil også gavne fleksibiliteten i systemet. Der skal selvfølgelig også være mulighed for at lave justeringer i kundernes økonomi i henhold til deres ønsker.
+Dette kræver nok at vi laver en lille 'buffer-DB'  på applikationssiden, hvor data opbevares indtil der kan synkroniseres med 'moder-databasen'.
+Vi fik slået fast at det ikke er en mulighed at få SDC til at sætte en server op på dette stadie i projektet. Det er alt alt for dyrt.
+Aspektet backup skal medtages i overvejelser omkring data opbevaring.
+Fremtidsmuligheder:
+Systemet skal naturligvis være modulopbygget således at der eksisterer en mulighed for at have 2vejs kommunikation med SDC database, evt Lotus notes.
+Vi må i den nuværende situation gå ud fra at vi skal lave en løsning med en Access database på EIK´s fællesdrev.
+
+\textbf{HUSK: }
+Hold os for øje at vi skal 'crack hardest nut first' = chNf.
+
+\textbf{En vigtig reflektion på baggrund af vores lille møde:}
+Vi skal passe på med at love for meget. Også selvom vi måske ikke direkte lover noget, men derimod erklærer interesse for aspektet, skal vi passe meget på. Der er meget kort vej fra at erklære interesse til at love. Misforståelsen opstår relativt nemt og det er noget vi skal være obs på. Yderligere skal vi nok lige tage teten op på fredags briefingen og forklare vores tanker omkring dette.

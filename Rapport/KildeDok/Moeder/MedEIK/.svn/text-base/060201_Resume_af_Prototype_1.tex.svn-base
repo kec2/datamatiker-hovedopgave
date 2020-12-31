@@ -1,0 +1,76 @@
+\paragraph{Nedkogt materiale om Lo-Fi prototype session 1 d. 01-02-06}
+
+
+
+Hvad er gået godt?\\
+\begin{itemize}
+\item Vi skal sørge for at applikationen bliver fleksibel at arbejde med. Altså at den ikke er arbejdsgangdikterende, men derimod arbejdsgangassisterende. Dette er så vidt muligt overholdt: 
+\item Man kan springe frem og tilbage mellem skærmbillederne, samtidig med at programmet gemmer den indtastede information.
+\item Opdelingen af arbejdsgangen i en indtastnings- og en talbearbejdningsdel lader til at virke fint.
+
+Hvad skal rettes/ hvilke problemer skal til revision?\\
+\item Radioknapper er svært forståelige. 
+\item Både ved personer(hvor man vælger den person, som man taget udgangspunkt i i øjeblikket. Her skal børn kunne tilføjes med en checkboks i stedet.
+\item Radioknapper ved Pop-Ups er problemet at al information forsøges indtastet på en gang.
+\item 'Opdater/slet/tilføj' går de ofte fejl af, det er ikke nemt nok at forstå, ikke intuitvt at forstå. Dette kunne måske rettes ved at præcisere hvad knapperne gør (hvad er det der i denne situation bliver opdateret, slettet og tilføjet). Opdatere kunne hedde ændre måske.
+\item For at opnå endnu mere fleksibilitet skal vi have lavet en sideoversigt nederst på skærmbillederne, som gør det muligt at springe mellem siderne en slags 'faneblads' løsning i stedet for bare 'en side frem/tilbage løsningen'. Når disse benyttes skal de øvrige sider opdateres.
+\item Notesystemet skal gennemgåes og revideres. Med henblik på hvad det skal bruges til, hvor det skal være muligt at tage noter til. Hvad med historikken: Skal man kunne se tidligere noter.
+\item Hvem har tilføjet noten med tidsstempel.
+\item Mulighed for at rette i tidligere noter.
+\item Overskydende skat skal væk under indtægtsforhold.
+\item Formueforhold: Under passiver blev Navn misforstået. Det skal hedde långiver i sted for.
+\item Formueforhold: Forældre lån skal hedde Famile lån.
+\item Pensions ordninger under Formueforhold -> tilføj skal væk.
+\item Formueforhold $\rightarrow$ tilføj: Rest skat skal hedde latent skat. Latent skat er brutto værdien af depotværdien minus 60\%.
+\item Formueforhold $\rightarrow$ tilføj: Kurs er prisen på en aktie. Kursværdi er antal * kurs. Så er der børs kurs er den aktuelle kurs på børsen.
+\item Pensionsforhold: Der skal byttes om du pensionstype og selvskab.
+
+Skal fjernes:\\
+\item Overskydende skat fra indtægtsforhold.
+
+Hvad skal tilføjes?\\
+\item Alle indtastninger skal være brutto (altså før skat)
+\item Under indtægtsforhold: Vi bør benytte FØR arbejdsmarkedsbidrag og ikke EFTER arbejdsmarkedsbidrag.
+\item Det skal være muligt at tilføje noter til Aktiver og Passiver under Formueforhold.
+\item Det skal være muligt at få et overblik over kunden og deres personlige forhold. 
+\item Har de børn, hvis ja hvor mange og hvad er deres navne og CPR numre. Er børnene fællesbørn eller ej? Er der tilknyttet nogen børneopsparing? Børn skal ikke opfattes som en kunde. 
+\item Hvilken virksomhed arbejder de i, er de lønmodtagere/selvstændige, hvis selvstændige er det Aps. eller er det A/S. Dette er for at kunne tale i billeder som kunden kan forholde sig til.
+\item Det skal måske være mere synligt hvem der er kontaktperson for kunden.
+\item Indtægtsforhold: Mangler Kapital indkomst.
+\item Indtægtsforhold: Aktier skal upspecificeres med kurs de er købt til, antallet og dagens kursværdi på Børsen. Måske info om hvor og hvornår de er købt, men absolut ikke essentielt.
+\item Indtægtsforhold: Der mangler ligningsmæssige fradrag.
+\item Indtægtsforhold: Mangler Pension (sum udbetaling) Der mangler udbetalingsperiode på pensioner. Der mangler en Kapital pension. Kapital pension kan hedde Sum udbetaling.
+Indtægtsforhold: Der mangler Rente udgifter.
+\item Formueforhold: Mangler link til www.skat.dk så Dion kan tjekke huspriser. Dette er en afgrænsning af kravenede set fra vores side.
+\item Formueforhold: Til Aktiverne mangler der investeringsbeviser.
+\item Formueforhold: Kassekredit skal have:
+\item Max overtræk. 
+\item Nuværende overtræk
+\item Rente sats 
+\item Rest løbetid.
+\item Formueforhold: Kredit lån skal have Rest løbetid, Type af lån (rentetilpasningslån, lo.) og Rente sats.
+\item Pensionsforhold: Der er 3 typer af pensioner. Rate pension (10-25 år), Engang udbetaling og livsvarigt udbetaling.
+\item Pensionsforhold: Der mangler under tilføj Pension 'Bank Ordning'.  Skal have 1/1, ½, ¼  årlige indbetalinger, samt månedlige indbetalinger, samt hvornår disse indbetalingerne startede.
+\item Pensionsforhold: Dion skelner mellem bank(prognose afkast) og forsikrings pension (garanteret afkast). Vores tilføj passer fint til forsikrings pension.
+\item Pensionsforhold: Bank forsikring skal have felterne. Værdi i dag/reserve, årlig, halvårlig, kvartal, mdr. indbetaling, stigning fra en eller anden dato til så og så meget og/eller en procentsats.
+\item Pensionsforhold: 
+\item Til bankordning (Pension) det ville være ret at kunne se fordelingen af Aktier, obligationer o.l. Både med beløb og forrentning.
+
+\begin{tabular}{ll}
+Aktie	50.000	&	forrentning 7\%\\
+Obligation	20.000	&	forrentning 5\%\\
+Kontant	100.000	&	forrentning 2\%\\
+\end{tabular}
+
+\item De forskellige lister af Aktiver, Passiver og Pensioner skal haver koloner med summer. En total og en for hver part i familien.
+\item Pension skal have beløb på pensionstidspunket, depotværdi (depotværdi = den værdi, invalidedækning og dødsdækning.
+\item Formueforhold $\rightarrow$ tilføj: Ville gerne kunne se et før og nu kurs på aktier så man kan se tab/vind over tid.
+
+Vores indtryk og erfaringer med sessionerne:
+\item Forklare mere om hvad sessionen indebærer. Det skal gå langsomt, Det er ikke ham der er under test. Computeren er dum og reagerer udelukkende på sessionsdeltagerens input.
+\item Følge reglerne. Roller. Sessionsdeltageren skal forstå at det kører i et langsomt tempo.
+\item Lade forklaringsarket ligger fremme så forståelse for eksempelvis radiobuttons bliver mere tydelig.
+\item Skærmbilleder skal gemmes for brugeren. (han må ikke sidde og smugkigge på andre skærmbilleder der ikke bør kunne ses på 'skærmen'.
+\item Ikke så meget hjælp til sessionsdeltageren. Sessionsdeltageren blev guidet meget i starten
+\item Undervisning om hvordan computeren bruges.
+\end{itemize}
