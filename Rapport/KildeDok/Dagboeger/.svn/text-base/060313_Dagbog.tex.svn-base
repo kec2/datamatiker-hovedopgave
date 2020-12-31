@@ -1,9 +1,0 @@
-\paragraph{I dag d. 13-03-06}
-
-\begin{itemize}
-\item Ændret sessionvalg til at vise sessionens kunders navne samt rådgiver, i stedet for dato og rådgiver. Dette er efter ønske fra Dion.
-\item Der er skrevet til udvidelsesmuligheder omkring sessionsvalg.
-\item Der er skrevet kommentarer til koden i kunde, kundekontainer, session, sessionkontainer, dbaccess, kundekontrol, indtaegtkontrol, splashkontrol og sessionsvalgkontrol.
-\item Der er oprettet et dataset til Crystal rapporten.
-\item Implementation af GUI regler er påbegyndt
-\end{itemize}

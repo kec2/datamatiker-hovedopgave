@@ -1,8 +1,0 @@
-\paragraph{I dag d. 13-03-06}
-
-\begin{itemize}
-\item MVC: Fra Kontrol delen af KundeKontrol.cs er funktionalitet samlet i funktioner og flyttet til View delen Kundedata.cs.
-\item Der er lavet funktionalitet til rediger/opdater knappen på indtaegter (popup).
-\item Der er lavet GUI regler for KundeData og Pension.
-\item Der er skrevet teori omkring Gestalt-lovene i Designafbrugergrænseflade.odt
-\end{itemize}

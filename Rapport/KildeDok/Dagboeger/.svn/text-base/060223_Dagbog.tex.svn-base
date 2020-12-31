@@ -1,8 +1,0 @@
-\paragraph{I dag d. 23-02-06}
-
-\begin{itemize}
-\item Vi kan nu gemme i DB, gennem save til DB funktion (indtil videre kun på SaveAktier i IndtaegtsKontainer)
-\item Vi har lavet load funktioner til aktiver og passiver.
-\item Lavet et udkast til splashscreen til Login skærm.
-\end{itemize}
-
